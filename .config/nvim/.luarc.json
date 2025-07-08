@@ -1,0 +1,13 @@
+{
+    "diagnostics.globals": [
+        "vim",
+        "Snacks",
+        "MiniHipatterns"
+    ],
+    "diagnostics.disable": [
+        "deprecated",
+        "unused-local",
+        "undefined-field",
+        "undefined-global"
+    ]
+}
