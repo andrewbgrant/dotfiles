@@ -1,0 +1,16 @@
+
+# yazi.toml
+[manager]
+# show_hidden = true
+linemode = "mtime"
+
+[opener]
+edit = [
+    { run = 'nvim "$@"', block = true},
+]
+
+[open]
+prepend_rules = [
+	{ name = "*.csv", use = "open" },
+
+]
