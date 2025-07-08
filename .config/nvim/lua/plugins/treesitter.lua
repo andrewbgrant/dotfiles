@@ -48,6 +48,7 @@ return {
             ensure_installed = {
                 "basedpyright",
                 "bashls",
+                "shellcheck",
                 "eslint",
                 "lua_ls",
                 "jsonls",
