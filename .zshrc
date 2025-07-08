@@ -1,0 +1,190 @@
+# zmodload zsh/zprof
+
+# History
+HISTSIZE=5000
+SAVEHIST=5000
+
+setopt autocd
+
+# Environment
+export VISUAL=nvim
+export EDITOR=nvim
+
+export NVM_DIR="$HOME/.nvm"
+
+
+# Zsh Plugins
+source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+bindkey '^Y' autosuggest-accept
+
+
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /opt/homebrew/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+zstyle ':autocomplete:*' min-input 3
+zstyle ':autocomplete:*' delay 0.2
+bindkey '^N' menu-select
+bindkey '^P' menu-select
+
+
+# Custom Environment Variables
+# Project tools
+source /Users/andrewgrant/set_env.sh
+source ~/dotfiles/tmuxp.sh
+source ~/dotfiles/kill-lsp.sh
+source ~/dotfiles/typescript-init.sh
+alias ts-init='typescript-init'
+alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
+
+
+
+# Language & Toolchain Paths
+# Ruby
+export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+export PATH="/opt/homebrew/lib/ruby/gems/3.3.0/bin:$PATH"
+PATH=$PATH:$(ruby -e 'puts Gem.bindir')
+
+# MySQL
+export PATH="/opt/homebrew/opt/mysql/bin:$PATH"
+export PATH="$NVM_DIR/versions/node/v22.14.0/bin:$PATH"
+# Lazy load nvm
+nvm() {
+  unset -f nvm node npm npx
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+  nvm "$@"
+}
+# Lazy load node
+node() {
+  unset -f nvm node npm npx
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+  node "$@"
+}
+# Lazy load npm
+npm() {
+  unset -f nvm node npm npx
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+  npm "$@"
+}
+# Lazy load npx
+npx() {
+  unset -f nvm node npm npx
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+  npx "$@"
+}
+
+# Python/uv
+. "$HOME/.local/bin/env"
+eval "$(uv generate-shell-completion zsh)"
+if [ -d "$HOME/.uv_global" ]; then
+    source $HOME/.uv_global/bin/activate
+fi
+
+# LM Studio CLI
+export PATH="$PATH:/Users/andrewgrant/.lmstudio/bin"
+
+# pnpm
+export PNPM_HOME="/Users/andrewgrant/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+
+
+#####################################################################
+# Prompt and Appearance
+
+# Colors
+PURPLE='%F{5}'
+BLUE='%F{cyan}'
+GREEN='%F{green}'
+YELLOW='%F{yellow}'
+RED='%F{red}'
+RESET='%f'
+
+# Git Prompt
+git_prompt_info() {
+  local branch_name
+  branch_name=$(git symbolic-ref HEAD 2> /dev/null) || return 0
+  branch_name=${branch_name##refs/heads/}
+  local git_status=""
+  if git diff --quiet 2> /dev/null; then
+    git_status="${GREEN}✔"
+  else
+    git_status="${RED}✗"
+  fi
+  echo "${PURPLE}(${branch_name} ${git_status}${PURPLE})${RESET}"
+}
+setopt PROMPT_SUBST
+PROMPT="${BLUE}%3~ \$(git_prompt_info)${RESET}
+% "
+
+#####################################################################
+# Aliases
+
+alias vim='nvim'
+alias l='eza -lha --group-directories-first --icons'
+alias ll='eza'
+alias ipy='ipython'
+alias lg='lazygit'
+alias gemini='node /Users/andrewgrant/Developer/gemini-cli/packages/cli'
+
+#####################################################################
+
+# Port management functions
+function stop-port() {
+  if [ -z "$1" ]; then
+    echo "Usage: stop-port <port_number>"
+    return 1
+  fi
+  
+  local port=$1
+  local pids=$(lsof -ti :$port)
+  
+  if [ -z "$pids" ]; then
+    echo "No process found listening on port $port"
+    return 1
+  fi
+  
+  echo "Killing process(es) on port $port: $pids"
+  echo $pids | xargs kill
+  
+  # Verify it's stopped
+  sleep 1
+  if lsof -ti :$port > /dev/null 2>&1; then
+    echo "Process still running, force killing..."
+    echo $pids | xargs kill -9
+  else
+    echo "Successfully stopped process on port $port"
+  fi
+}
+
+function show-ports() {
+  echo "Common development ports:"
+  for port in 3000 3001 8001 8002; do
+    local pid=$(lsof -ti :$port 2>/dev/null)
+    if [ -n "$pid" ]; then
+      local process=$(ps -p $pid -o comm= 2>/dev/null)
+      echo "Port $port: PID $pid ($process)"
+    else
+      echo "Port $port: free"
+    fi
+  done
+  echo ""
+  echo "All listening ports:"
+  lsof -i -P -n | grep LISTEN | awk '{print $1, $2, $9}' | sort -k3
+}
+#####################################################################
+#####################################################################
+# FZF
+# dont use fzf much anyway
+# export FZF_ALT_C_COMMAND='' # Disable ALT-C command
+# source <(fzf --zsh)
+
+#####################################################################
+
+# LMS server start function
+
+function start-lms() {
+    ssh -t desktop "source ~/.zshrc; lms load deepseek/deepseek-r1-0528-qwen3-8b && lms server start"
+}
+# zprof
