@@ -1,0 +1,8 @@
+background = "#000000"
+background-opacity = 0.73
+background-blur-radius = 20
+font-family = Liga SFMono Nerd Font
+font-size=16
+cursor-style = block
+cursor-style-blink = false
+
