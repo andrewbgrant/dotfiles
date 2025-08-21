@@ -123,10 +123,12 @@ PROMPT="${BLUE}%3~ \$(git_prompt_info)${RESET}
 
 alias vim='nvim'
 alias l='eza -lha --group-directories-first --icons'
+alias ls='eza -lha --group-directories-first --icons'
 alias ll='eza'
 alias ipy='ipython'
 alias lg='lazygit'
-alias gemini='node /Users/andrewgrant/Developer/gemini-cli/packages/cli'
+# alias gemini='node /Users/andrewgrant/Developer/gemini-cli/packages/cli'
+alias qwen='node /Users/andrewgrant/Developer/qwen-code/packages/cli'
 
 #####################################################################
 
@@ -188,3 +190,6 @@ function start-lms() {
     ssh -t desktop "source ~/.zshrc; lms load deepseek/deepseek-r1-0528-qwen3-8b && lms server start"
 }
 # zprof
+
+# opencode
+export PATH=/Users/andrewgrant/.opencode/bin:$PATH
