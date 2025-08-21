@@ -1,45 +1,48 @@
 return {
 
-    {
-        "tpope/vim-fugitive",
-        lazy = false,
-        config = function()
-        end,
+	{
+		"tpope/vim-fugitive",
+		lazy = false,
+		config = function() end,
 
-        keys = {
-            { "<leader>ga", ":Git add %<CR>", desc = "Git Add (stage) current buffer" },
-        },
-    },
+		keys = {
+			{ "<leader>ga", ":Git add %<CR>", desc = "Git stage current buffer" },
+		},
+	},
 
-    { "sindrets/diffview.nvim", lazy = true, cmd = { "DiffviewFileHistory" } },
+	{ "sindrets/diffview.nvim", lazy = true, cmd = { "DiffviewFileHistory" } },
 
-    {
-        "lewis6991/gitsigns.nvim",
-        event = { "BufReadPre", "BufNewFile" },
-        opts = {
-            signs = {
-                add = { text = "▎" },
-                change = { text = "▎" },
-                delete = { text = "▎" },
-                topdelete = { text = "▎" },
-                changedelete = { text = "▎" },
-                untracked = { text = "▎" },
-            },
-            signs_staged = {
-                add = { text = "▎" },
-                change = { text = "▎" },
-                delete = { text = "▎" },
-                topdelete = { text = "▎" },
-                changedelete = { text = "▎" },
-            },
-            on_attach = function(buffer)
-                local gs = package.loaded.gitsigns
-                local function map(mode, l, r, desc)
-                    vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc })
-                end
-                map({ "n", "v" }, "<leader>gs", gs.stage_hunk, "Stage Hunk")
-                map({ "n", "v" }, "<leader>gr", gs.reset_hunk, "Reset Hunk")
-                map({ "n", "v" }, "<leader>gp", gs.preview_hunk, "Preview Hunk")
+	{
+		"lewis6991/gitsigns.nvim",
+		event = { "BufReadPre", "BufNewFile" },
+		opts = {
+			current_line_blame = false,
+			signs = {
+				add = { text = "▎" },
+				change = { text = "▎" },
+				delete = { text = "▎" },
+				topdelete = { text = "▎" },
+				changedelete = { text = "▎" },
+				untracked = { text = "▎" },
+			},
+			signs_staged = {
+				add = { text = "▎" },
+				change = { text = "▎" },
+				delete = { text = "▎" },
+				topdelete = { text = "▎" },
+				changedelete = { text = "▎" },
+			},
+			on_attach = function(buffer)
+				local gs = package.loaded.gitsigns
+				local function map(mode, l, r, desc)
+					vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc })
+				end
+				map({ "n", "v" }, "<leader>gs", gs.stage_hunk, "Stage Hunk")
+				map("n", "<leader>gb", function()
+					gs.blame_line({ full = true })
+				end)
+				map({ "n", "v" }, "<leader>gr", gs.reset_hunk, "Reset Hunk")
+				map({ "n", "v" }, "<leader>gp", gs.preview_hunk, "Preview Hunk")
                 -- stylua: ignore start
                 map("n", "]h", function()
                     if vim.wo.diff then
@@ -55,7 +58,7 @@ return {
                         gs.nav_hunk("prev")
                     end
                 end, "Prev Hunk")
-            end,
-        },
-    },
+			end,
+		},
+	},
 }

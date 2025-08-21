@@ -43,17 +43,10 @@ return {
             { "<c-d>",            function() Snacks.bufdelete.other() end,                                            desc = "delete all other buffer" },
             { "<leader>lg",       function() Snacks.lazygit() end,                                                    desc = "lazygit" },
 
-            -- { "<leader>gf",       function() Snacks.picker.git_log_file() end,                                        desc = "Git Current File History" },
-            { "<leader>gL",       function() Snacks.picker.git_log() end,                                             desc = "Git Log" },
-            { "<leader>gd",       function() Snacks.picker.git_diff() end,                                            desc = "Git Log" },
-            { "<leader>gb",       function() Snacks.picker.git_branches({ layout = "select" }) end,                   desc = "Git Branches" },
-            { "<leader>gs",       function() Snacks.picker.git_status() end,                                          desc = "Git Status" },
-
             -- Top Pickers & Explorer
             { "<leader><leader>", function() Snacks.picker.smart({ exclude = { "*.xlsx", "*.csv" } }) end,            desc = "Smart Find Files" },
             { "<leader>ff",       function() Snacks.picker.files({ exclude = { "*.xlsx", "*.csv" } }) end,            desc = "Find Files" },
             { "<leader>b",        function() Snacks.picker.buffers({ layout = "select", sort_lastused = false }) end, desc = "Buffers" },
-            -- { "<leader>fr",       function() Snacks.picker.recent() end,                                   desc = "Recents" },
             { "<leader>fc",       function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end,             desc = "Find Config File" },
             -- Grep
             { "<leader>fg",       function() Snacks.picker.grep() end,                                                desc = "Grep" },
@@ -65,23 +58,16 @@ return {
             { "<leader>n",        function() Snacks.picker.notifications() end,                                       desc = "noitifications" },
             -- LSP
             { "<leader>fs",       function() Snacks.picker.lsp_symbols() end,                                         desc = "LSP Symbols" },
-            { "<leader>fS",       function() Snacks.picker.treesitter_symbols() end,                                  desc = "TS Symbols" },
+            { "<leader>fS",       function() Snacks.picker.lsp_workspace_symbols() end,                               desc = "LSP Workspace Symbols" },
             { "<leader>fr",       function() Snacks.picker.lsp_references() end,                                      nowait = true,                   desc = "References" },
             { "<leader>fi",       function() Snacks.picker.lsp_implementations() end,                                 desc = "Goto Implementation" },
-
-            -- { "<leader>fS", function() Snacks.picker.lsp_workspace_symbols() end, desc = "LSP Workspace Symbols" },
-            { "<leader>ft",       function() Snacks.picker.treesitter() end,                                          desc = "Treesitter Symbols" },
             { "gd",               function() Snacks.picker.lsp_definitions() end,                                     desc = "Goto Definition" },
             { "gD",               function() Snacks.picker.lsp_declarations() end,                                    desc = "Goto Declaration" },
 
 
             { "<leader>t",        function() Snacks.terminal() end,                                                   desc = "Terminal" },
-            { "<leader>pt",       function() Snacks.terminal.list() end,                                              desc = "Terminal" },
 
-            { "<leader>pC",       function() Snacks.picker.colorschemes({ layout = "select" }) end,                   desc = "Colorschemes" },
             { "<leader>sk",       function() Snacks.picker.keymaps() end,                                             desc = "Keymaps" },
-
-
 
             {
                 "<leader>o",

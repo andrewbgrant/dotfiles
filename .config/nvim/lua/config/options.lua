@@ -27,7 +27,7 @@ opt.wrap = false
 opt.smoothscroll = true
 opt.grepprg = "rg --vimgrep"
 opt.ignorecase = true -- Ignore case
-opt.smartcase = true  -- Don't ignore case with capitals
+opt.smartcase = true -- Don't ignore case with capitals
 
 -- Tabs
 opt.expandtab = true

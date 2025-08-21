@@ -17,28 +17,28 @@ vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 require("config.options")
 
 require("lazy").setup({ import = "plugins" }, {
-    change_detection = { notify = false },
+	change_detection = { notify = false },
 })
 
 require("config")
 vim.diagnostic.config({
-    virtual_text = true,
-    float = {
-        focusable = false,
-        border = "single",
-        source = "always",
-    },
+	virtual_text = true,
+	float = {
+		focusable = false,
+		border = "single",
+		source = "always",
+	},
 })
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "single" })
 vim.lsp.enable({
-    'basedpyright',
-    'eslint',
-    'jsonls',
-    'ruff',
-    'html',
-    'yamlls',
-    "lua_ls",
-    'rust_analyzer',
-    "bashls",
-    "marksman",
+	"basedpyright",
+	-- 'eslint',
+	"jsonls",
+	"ruff",
+	"html",
+	"yamlls",
+	"lua_ls",
+	"rust_analyzer",
+	"bashls",
+	"marksman",
 })
