@@ -41,7 +41,11 @@ alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
 # Ruby
 export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 export PATH="/opt/homebrew/lib/ruby/gems/3.3.0/bin:$PATH"
-PATH=$PATH:$(ruby -e 'puts Gem.bindir')
+# Add Ruby gem bindir to PATH if not already present
+GEM_BINDIR=$(ruby -e 'puts Gem.bindir' 2>/dev/null)
+if [[ -n "$GEM_BINDIR" && ":$PATH:" != *":$GEM_BINDIR:"* ]]; then
+  PATH=$PATH:$GEM_BINDIR
+fi
 
 # MySQL
 export PATH="/opt/homebrew/opt/mysql/bin:$PATH"
@@ -127,8 +131,6 @@ alias ls='eza -lha --group-directories-first --icons'
 alias ll='eza'
 alias ipy='ipython'
 alias lg='lazygit'
-# alias gemini='node /Users/andrewgrant/Developer/gemini-cli/packages/cli'
-alias qwen='node /Users/andrewgrant/Developer/qwen-code/packages/cli'
 
 #####################################################################
 
@@ -189,7 +191,6 @@ function show-ports() {
 function start-lms() {
     ssh -t desktop "source ~/.zshrc; lms load deepseek/deepseek-r1-0528-qwen3-8b && lms server start"
 }
-# zprof
 
 # opencode
 export PATH=/Users/andrewgrant/.opencode/bin:$PATH
