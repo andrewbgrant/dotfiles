@@ -1,8 +1,13 @@
-background = "#000000"
-background-opacity = 0.73
-background-blur-radius = 20
+background = "#1a1a17"
+#background = "#222227"
+#background = "#1C274D"
+#background = "#3b404f"
+background-blur-radius = 35
+background-opacity = 0.80
+
 font-family = Liga SFMono Nerd Font
 font-size=16
-cursor-style = block
 cursor-style-blink = false
+cursor-style = block
 
+keybind = shift+enter=text:\x1b\r
