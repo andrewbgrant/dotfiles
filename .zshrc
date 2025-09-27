@@ -29,9 +29,9 @@ bindkey '^P' menu-select
 # Custom Environment Variables
 # Project tools
 source /Users/andrewgrant/set_env.sh
-source ~/dotfiles/tmuxp.sh
-source ~/dotfiles/kill-lsp.sh
-source ~/dotfiles/typescript-init.sh
+source ~/dotfiles/scripts/tmuxp.sh
+source ~/dotfiles/scripts/kill-lsp.sh
+source ~/dotfiles/scripts/typescript-init.sh
 alias ts-init='typescript-init'
 alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
 
