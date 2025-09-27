@@ -1,0 +1,10 @@
+notARepository: "quit"
+git:
+  overrideGpg: true
+  paging:
+    colorArg: always
+    pager: diff-so-fancy
+gui:
+  showBottomLine: false
+  border: rounded
+  nerdFontsVersion: "3"
