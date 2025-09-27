@@ -132,6 +132,11 @@ alias ll='eza'
 alias ipy='ipython'
 alias lg='lazygit'
 
+# Directory navigation
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+
 #####################################################################
 
 # Port management functions
@@ -179,10 +184,14 @@ function show-ports() {
 }
 #####################################################################
 #####################################################################
-# FZF
-# dont use fzf much anyway
-# export FZF_ALT_C_COMMAND='' # Disable ALT-C command
-# source <(fzf --zsh)
+# FZF Configuration
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border --preview="bat --color=always {}" --preview-window=right:50%'
+
+# FZF command for directories
+export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git'
+
+source <(fzf --zsh)
 
 #####################################################################
 
@@ -194,3 +203,19 @@ function start-lms() {
 
 # opencode
 export PATH=/Users/andrewgrant/.opencode/bin:$PATH
+
+#####################################################################
+# Enhanced File Navigation & Development Functions
+
+
+# Quick file finder and opener with preview
+function ff() {
+    local file=$(fd --type f | fzf --preview 'bat --color=always --style=numbers {}' --height 60%)
+    [ -n "$file" ] && $EDITOR "$file"
+}
+
+# Better directory navigation
+function fcd() {
+    local dir=$(fd --type d | fzf --height 40% --preview 'ls -la {}')
+    [ -n "$dir" ] && cd "$dir"
+}
