@@ -1,8 +1,12 @@
 # zmodload zsh/zprof
 
 # History
-HISTSIZE=5000
-SAVEHIST=5000
+HISTSIZE=10000
+SAVEHIST=10000
+setopt HIST_IGNORE_DUPS      # Don't record duplicates
+setopt HIST_IGNORE_SPACE     # Don't record commands starting with space
+setopt SHARE_HISTORY         # Share history between sessions
+setopt HIST_VERIFY           # Show command before executing from history
 
 setopt autocd
 
