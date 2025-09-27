@@ -1,41 +1,44 @@
 return {
 
-    {
-        "folke/snacks.nvim",
-        priority = 1000,
-        lazy = false,
-        opts = {
-            bigfile = { enabled = true },
-            bufdelete = { enabled = true },
-            lazygit = { enabled = true },
-            input = { enabled = true },
-            image = { enabled = true },
-            terminal = {
-                enabled = true,
-                keys = {
-                    term_normal = {
-                        "<esc>",
-                        mode = "t",
-                        expr = true,
-                        desc = "escape to normal mode",
-                    },
-                },
-            },
-            picker = {
-                enabled = true,
-                formatters = {
-                    file = {
-                        filename_first = false, -- display filename before the file path
-                        truncate = 53,          -- truncate the file path to (roughly) this length
-                        git_status_hl = true,   -- use the git status highlight group for the filename
-                    },
-                },
-            },
-            notifier = {
-                enabled = true,
-                style = "minimal",
-            },
-        },
+	{
+		"folke/snacks.nvim",
+		priority = 1000,
+		lazy = false,
+		opts = {
+			bigfile = { enabled = true },
+			bufdelete = { enabled = true },
+			lazygit = { enabled = true },
+			input = { enabled = true },
+			image = { enabled = true },
+			terminal = {
+				enabled = true,
+				keys = {
+					term_normal = {
+						"<esc>",
+						mode = "t",
+						expr = true,
+						desc = "escape to normal mode",
+					},
+				},
+			},
+			picker = {
+				enabled = true,
+				ui_select = true,
+				formatters = {
+					file = {
+						filename_first = true,
+						filename_only = false,
+						icon_width = 2,
+						truncate = 56, -- truncate the file path to (roughly) this length
+						git_status_hl = true, -- use the git status highlight group for the filename
+					},
+				},
+			},
+			notifier = {
+				enabled = true,
+				style = "minimal",
+			},
+		},
 
         -- stylua: ignore
         keys = {
@@ -44,7 +47,7 @@ return {
             { "<leader>lg",       function() Snacks.lazygit() end,                                                    desc = "lazygit" },
 
             -- Top Pickers & Explorer
-            { "<leader><leader>", function() Snacks.picker.smart({ exclude = { "*.xlsx", "*.csv" } }) end,            desc = "Smart Find Files" },
+            -- { "<leader><leader>", function() Snacks.picker.smart({ exclude = { "*.xlsx", "*.csv" } }) end,            desc = "Smart Find Files" },
             { "<leader>ff",       function() Snacks.picker.files({ exclude = { "*.xlsx", "*.csv" } }) end,            desc = "Find Files" },
             { "<leader>b",        function() Snacks.picker.buffers({ layout = "select", sort_lastused = false }) end, desc = "Buffers" },
             { "<leader>fc",       function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end,             desc = "Find Config File" },
@@ -112,5 +115,5 @@ return {
             },
 
         },
-    },
+	},
 }

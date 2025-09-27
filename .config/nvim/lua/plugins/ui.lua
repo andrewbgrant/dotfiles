@@ -118,17 +118,6 @@ return {
 			vim.keymap.set("n", "<leader>pa", "<cmd>AerialToggle<cr>", { silent = true })
 		end,
 	},
-	{
-		"rrethy/vim-illuminate",
-		config = function()
-			require("illuminate").configure({
-				delay = 350,
-				filetypes_denylist = {
-					"aerial",
-				},
-				modes_denylist = { "v", "V" },
-				under_cursor = true,
-			})
-		end,
-	},
+
+	{ "echasnovski/mini.cursorword", version = "*", opts = {}, delay = 300 },
 }

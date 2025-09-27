@@ -43,6 +43,7 @@ return {
 			},
 			sticky = {
 				"@buffers",
+				"#buffers",
 			},
 
 			prompts = {
