@@ -3,3 +3,7 @@
 [user]
 	name = Andrew
 	email = andrewbg8@gmail.com
+[http]
+	postBuffer = 524288000
+	bufferSize = 512m
+	timeout = 300
