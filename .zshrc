@@ -141,6 +141,10 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 
+# Process management
+alias ps='ps aux | grep -v grep | grep'
+alias ports='lsof -i -P -n | grep LISTEN'
+
 #####################################################################
 
 # Port management functions

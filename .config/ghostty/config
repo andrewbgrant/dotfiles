@@ -6,7 +6,7 @@ background-blur-radius = 35
 background-opacity = 0.80
 
 font-family = Liga SFMono Nerd Font
-font-size=16
+font-size=14
 cursor-style-blink = false
 cursor-style = block
 
