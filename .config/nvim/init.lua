@@ -41,4 +41,5 @@ vim.lsp.enable({
 	"rust_analyzer",
 	"bashls",
 	"marksman",
+	"tailwindcss",
 })
