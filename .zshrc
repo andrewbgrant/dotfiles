@@ -11,8 +11,8 @@ setopt HIST_VERIFY           # Show command before executing from history
 setopt autocd
 
 # Environment
-export VISUAL=nvim
-export EDITOR=nvim
+export VISUAL='nvim'
+export EDITOR='nvim'
 
 export NVM_DIR="$HOME/.nvm"
 
@@ -135,6 +135,7 @@ alias ls='eza -lha --group-directories-first --icons'
 alias ll='eza'
 alias ipy='ipython'
 alias lg='lazygit'
+alias venv='source venv/bin/activate 2>/dev/null || source .venv/bin/activate'
 
 # Directory navigation
 alias ..='cd ..'
