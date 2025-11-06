@@ -154,23 +154,7 @@ if.workspace = '2'
 run = 'layout floating'
 
 [[on-window-detected]]
-if.workspace = '1'
-run = 'layout floating'
-
-[[on-window-detected]]
-if.workspace = '3'
-run = 'layout floating'
-
-[[on-window-detected]]
-if.workspace = '4'
-run = 'layout floating'
-
-[[on-window-detected]]
 if.workspace = '9'
-run = 'layout floating'
-
-[[on-window-detected]]
-if.workspace = 'c'
 run = 'layout floating'
 
 [[on-window-detected]]
@@ -193,7 +177,4 @@ if.app-id = "com.apple.Photos"
     run = "layout floating"
 [[on-window-detected]]
 if.app-id = "com.apple.mail"
-    run = "layout floating"
-[[on-window-detected]]
-if.app-id = "md.obsidian"
     run = "layout floating"
