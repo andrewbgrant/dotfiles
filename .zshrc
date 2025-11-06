@@ -53,31 +53,31 @@ fi
 
 # MySQL
 export PATH="/opt/homebrew/opt/mysql/bin:$PATH"
-export PATH="$NVM_DIR/versions/node/v22.14.0/bin:$PATH"
-# Lazy load nvm
+
+# Add node to PATH directly (fast, no nvm load)
+if [ -d "$NVM_DIR/versions/node" ]; then
+  # Get default version (may be partial like "22")
+  DEFAULT_VERSION=$(cat "$NVM_DIR/alias/default" 2>/dev/null)
+
+  if [ -n "$DEFAULT_VERSION" ]; then
+    # Find matching version in versions directory (e.g., "22" -> "v22.16.0")
+    NODE_VERSION=$(ls -1 "$NVM_DIR/versions/node" | grep "^v${DEFAULT_VERSION}" | tail -1)
+  else
+    # Fall back to most recent version
+    NODE_VERSION=$(ls -t "$NVM_DIR/versions/node" | head -1)
+  fi
+
+  if [ -n "$NODE_VERSION" ] && [ -d "$NVM_DIR/versions/node/$NODE_VERSION/bin" ]; then
+    export PATH="$NVM_DIR/versions/node/$NODE_VERSION/bin:$PATH"
+  fi
+fi
+
+# Lazy load nvm (only when explicitly needed)
 nvm() {
-  unset -f nvm node npm npx
+  unset -f nvm
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
   [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
   nvm "$@"
-}
-# Lazy load node
-node() {
-  unset -f nvm node npm npx
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-  node "$@"
-}
-# Lazy load npm
-npm() {
-  unset -f nvm node npm npx
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-  npm "$@"
-}
-# Lazy load npx
-npx() {
-  unset -f nvm node npm npx
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-  npx "$@"
 }
 
 # Python/uv
