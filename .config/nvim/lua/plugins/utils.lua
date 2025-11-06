@@ -117,32 +117,4 @@ return {
 			-- optional configuration here
 		},
 	},
-	{
-		"dmtrKovalenko/fff.nvim",
-		build = "cargo build --release",
-		opts = {
-			debug = {
-				enabled = false, -- we expect your collaboration at least during the beta
-				show_scores = false, -- to help us optimize the scoring system, feel free to share your scores!
-			},
-			layout = {
-				prompt_position = "top",
-				preview_position = "right",
-				preview_size = 0.5,
-			},
-		},
-		-- No need to lazy-load with lazy.nvim.
-		-- This plugin initializes itself lazily.
-		lazy = false,
-
-		keys = {
-			{
-				"<leader><leader>", -- try it if you didn't it is a banger keybinding for a picker
-				function()
-					require("fff").find_files()
-				end,
-				desc = "FFFind files",
-			},
-		},
-	},
 }

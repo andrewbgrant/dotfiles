@@ -5,6 +5,9 @@ vim.cmd("let g:loaded_composer_provider = 0")
 vim.cmd("let g:loaded_julia_provider = 0")
 vim.cmd("let g:loaded_javac_provider = 0")
 
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
     -- bootstrap lazy.nvim

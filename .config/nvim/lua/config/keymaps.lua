@@ -4,6 +4,13 @@ vim.keymap.set({ "n", "x" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", { desc = "Do
 vim.keymap.set({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
 vim.keymap.set({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
 
+-- copy current buffer path to clipboard
+vim.keymap.set("n", "<leader>cp", function()
+	local relpath = vim.fn.expand("%:.")
+	vim.fn.setreg("+", relpath)
+	vim.notify("Copied relative path: " .. relpath, vim.log.levels.INFO)
+end, { desc = "Copy relative file path to clipboard" })
+
 -- Windows
 vim.keymap.set("n", "<leader>wx", "<C-W>c", { desc = "Delete window", remap = true })
 vim.keymap.set("n", "<leader>w-", "<C-W>s", { desc = "Split window below", remap = true })
@@ -145,3 +152,9 @@ vim.keymap.set("n", "<S-l>", function()
 		vim.api.nvim_set_current_buf(next_buf)
 	end
 end, { desc = "Next Buffer" })
+
+-- Tab management
+vim.keymap.set("n", "<leader>tc", "<cmd>tabnew<cr>", { desc = "Create Tab" })
+vim.keymap.set("n", "<leader>tx", "<cmd>tabclose<cr>", { desc = "Close Tab" })
+vim.keymap.set("n", "<leader>tn", "<cmd>tabnext<cr>", { desc = "Next Tab" })
+vim.keymap.set("n", "<leader>tp", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })

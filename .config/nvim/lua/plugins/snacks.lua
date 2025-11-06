@@ -7,7 +7,15 @@ return {
 		opts = {
 			bigfile = { enabled = true },
 			bufdelete = { enabled = true },
-			lazygit = { enabled = true },
+			lazygit = {
+				enabled = true,
+				win = {
+					style = "lazygit", -- keep the style (optional)
+					width = 0.97, -- fraction of editor width (1 or <= 1)
+					height = 0.97, -- fraction of editor height
+					border = "rounded", -- or "none" to remove the border
+				},
+			},
 			input = { enabled = true },
 			image = { enabled = true },
 			terminal = {
@@ -47,7 +55,7 @@ return {
             { "<leader>lg",       function() Snacks.lazygit() end,                                                    desc = "lazygit" },
 
             -- Top Pickers & Explorer
-            -- { "<leader><leader>", function() Snacks.picker.smart({ exclude = { "*.xlsx", "*.csv" } }) end,            desc = "Smart Find Files" },
+            { "<leader><leader>", function() Snacks.picker.smart({ exclude = { "*.xlsx", "*.csv" } }) end,            desc = "Smart Find Files" },
             { "<leader>ff",       function() Snacks.picker.files({ exclude = { "*.xlsx", "*.csv" } }) end,            desc = "Find Files" },
             { "<leader>b",        function() Snacks.picker.buffers({ layout = "select", sort_lastused = false }) end, desc = "Buffers" },
             { "<leader>fc",       function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end,             desc = "Find Config File" },
