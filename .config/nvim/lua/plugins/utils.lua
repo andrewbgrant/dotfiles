@@ -24,33 +24,6 @@ return {
 	},
 
 	{
-		"pmizio/typescript-tools.nvim",
-		ft = { "typescript", "typescriptreact" },
-		dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-		opts = {},
-		config = function()
-			require("typescript-tools").setup({
-				on_attach = function(client, bufnr)
-					client.server_capabilities.documentFormattingProvider = false
-					client.server_capabilities.documentRangeFormattingProvider = false
-				end,
-				settings = {
-					jsx_close_tag = {
-						enable = true,
-						filetypes = { "javascriptreact", "typescriptreact" },
-					},
-					expose_as_code_action = {
-						"fix_all",
-						"add_missing_imports",
-						"remove_unused",
-						"remove_unused_imports",
-						"organize_imports",
-					},
-				},
-			})
-		end,
-	},
-	{
 		"echasnovski/mini.ai",
 		event = "VeryLazy",
 		opts = function()

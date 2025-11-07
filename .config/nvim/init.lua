@@ -35,7 +35,6 @@ vim.diagnostic.config({
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "single" })
 vim.lsp.enable({
 	"basedpyright",
-	-- 'eslint',
 	"jsonls",
 	"ruff",
 	"html",
@@ -44,5 +43,6 @@ vim.lsp.enable({
 	"rust_analyzer",
 	"bashls",
 	"marksman",
-	"tailwindcss",
+	"ts_ls",
+	"eslint",
 })

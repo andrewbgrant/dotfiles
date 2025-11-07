@@ -60,29 +60,32 @@ return {
 
 	{
 		"mason-org/mason.nvim",
+		cmd = "Mason",
 		keys = { { "<leader>pm", "<cmd>Mason<cr>", desc = "Mason" } },
 		opts = {},
 	},
 
 	{
 		"williamboman/mason-lspconfig.nvim",
-		event = "VeryLazy",
-		lazy = true,
-		opts = {
-			auto_install = true,
-			ensure_installed = {
-				"basedpyright",
-				"bashls",
-				"eslint",
-				"lua_ls",
-				"jsonls",
-				"ruff",
-				"tailwindcss",
-				"html",
-				"yamlls",
-				"rust_analyzer",
-				"marksman",
-			},
-		},
+		dependencies = { "mason-org/mason.nvim" },
+		event = { "BufReadPre", "BufNewFile" },
+		config = function()
+			require("mason-lspconfig").setup({
+				automatic_enable = true,
+				ensure_installed = {
+					"basedpyright",
+					"bashls",
+					"eslint",
+					"lua_ls",
+					"jsonls",
+					"ruff",
+					"html",
+					"yamlls",
+					"rust_analyzer",
+					"marksman",
+					"ts_ls",
+				},
+			})
+		end,
 	},
 }
