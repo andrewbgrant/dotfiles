@@ -1,18 +1,8 @@
 return {
 
 	{
-		"tpope/vim-fugitive",
-		lazy = false,
-		config = function() end,
-
-		keys = {
-			{ "<leader>ga", ":Git add %<CR>", desc = "Git stage current buffer" },
-		},
-	},
-
-	{
 		"sindrets/diffview.nvim",
-		lazy = false,
+		lazy = true,
 		keys = {
 			{
 				"<leader>gd",

@@ -1,7 +1,7 @@
 return {
 	{
 		"stevearc/oil.nvim",
-		lazy = false,
+		lazy = true,
 		opts = {},
 		dependencies = { { "echasnovski/mini.icons", opts = {} } },
 		config = function()
