@@ -28,6 +28,11 @@ vim.keymap.set({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and 
 --keywordprg
 vim.keymap.set("n", "<leader>cK", "<cmd>norm! K<cr>", { desc = "Keywordprg" })
 
+-- toggle inlay hints
+vim.keymap.set("n", "<leader>ch", function()
+	vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+end, { desc = "Toggle Inlay Hints" })
+
 -- better indenting
 vim.keymap.set("v", "<", "<gv")
 vim.keymap.set("v", ">", ">gv")
@@ -83,7 +88,7 @@ vim.keymap.set("t", "<C-l>", "<cmd>wincmd l<cr>", { desc = "Go to right window" 
 -- Function to check if a buffer should be excluded
 local function is_excluded_buffer(bufnr)
 	local bufname = vim.fn.bufname(bufnr)
-	local buftype = vim.api.nvim_buf_get_option(bufnr, "buftype")
+	local buftype = vim.bo[bufnr].buftype
 
 	-- Exclude specific buffer names (add more patterns as needed)
 	local excluded_names = { "copilot%-chat" }
