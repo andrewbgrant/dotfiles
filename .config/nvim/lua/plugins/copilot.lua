@@ -9,7 +9,7 @@ return {
 		cmd = "Copilot",
 		event = "InsertEnter",
 		opts = {
-			copilot_model = "gpt-4o-copilot",
+			copilot_model = "gpt-41-copilot",
 			panel = { enabled = false },
 			suggestion = {
 				enabled = false,
@@ -31,7 +31,7 @@ return {
 		dependencies = { { "zbirenbaum/copilot.lua" }, { "nvim-lua/plenary.nvim", branch = "master" } },
 		branch = "main",
 		opts = {
-			model = "gpt-4.1",
+			model = "claude-sonnet-4.5",
 			user = user:sub(1, 1):upper() .. user:sub(2),
 			question_header = " " .. user .. " ",
 			answer_header = " Copilot ",
@@ -87,15 +87,6 @@ return {
 				desc = "CopilotChat - Quick chat",
 			},
 			{ "<leader>ca", "<cmd>CopilotChatPrompts<cr>", mode = { "n", "v" }, desc = "Prompts" },
-			-- {
-			-- 	"<leader>ca",
-			-- 	function()
-			-- 		local actions = require("CopilotChatPrompts")
-			-- 		require("CopilotChat.integrations.snacks").pick(actions.prompt_actions())
-			-- 	end,
-			-- 	mode = { "n", "v" },
-			-- 	desc = "CopilotChat - Prompt actions",
-			-- },
 		},
 	},
 }
