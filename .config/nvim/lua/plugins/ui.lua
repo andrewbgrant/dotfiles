@@ -27,6 +27,11 @@ return {
 					"NONE",
 				},
 			},
+			latex = {
+				enabled = true,
+				converter = "latex2text",
+				highlight = "RenderMarkdownMath",
+			},
 		},
 	},
 

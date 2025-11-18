@@ -7,6 +7,7 @@ return {
 			local config = require("nvim-treesitter.configs")
 			config.setup({
 				auto_install = true,
+				ensure_installed = { "latex" },
 				highlight = { enable = true },
 				indent = { enable = true },
 			})
@@ -84,6 +85,7 @@ return {
 					"rust_analyzer",
 					"marksman",
 					"ts_ls",
+					"texlab",
 				},
 			})
 		end,
