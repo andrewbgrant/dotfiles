@@ -6,7 +6,6 @@ return {
 		config = function()
 			require("voyager").setup({})
 			vim.cmd.colorscheme("voyager")
-			vim.api.nvim_set_hl(0, "LspInlayHint", { fg = "#5c6370", italic = true })
 		end,
 	},
 }

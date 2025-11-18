@@ -18,6 +18,13 @@ return {
 			disableOrganizeImports = true,
 			disableTaggedHints = false,
 			analysis = {
+				inlayHints = {
+					variableTypes = true,
+					functionReturnTypes = true,
+					callArgumentNames = true,
+					genericTypes = true,
+					allArgumentNamesMatching = true,
+				},
 				extraPaths = {
 					"/Users/andrewgrant/Library/CloudStorage/OneDrive-SharedLibraries-Crossroads/CG Team Site - Documents/4. Operations/crpy/config",
 				},
@@ -28,6 +35,7 @@ return {
 					reportDuplicateImport = true,
 					reportUnusedImport = false,
 					reportUnusedVariable = false,
+					reportUnusedParameter = false,
 					reportUndefinedVariable = false,
 					reportConstantRedefinition = true,
 					reportPrivateUsage = true,

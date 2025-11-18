@@ -40,3 +40,23 @@ vim.api.nvim_create_autocmd("FileType", {
 		vim.bo.expandtab = true
 	end,
 })
+
+vim.api.nvim_create_autocmd("LspAttach", {
+	callback = function(args)
+		local client = vim.lsp.get_client_by_id(args.data.client_id)
+		if client and client.supports_method("textDocument/inlayHint") then
+			pcall(vim.lsp.inlay_hint.enable, true, { bufnr = args.buf })
+		end
+
+		local bufnr = args.buf
+		local function map(mode, lhs, rhs, desc)
+			vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, desc = desc })
+		end
+
+		map("n", "gy", vim.lsp.buf.type_definition, "Goto Type Definition")
+		map("n", "K", vim.lsp.buf.hover, "Hover")
+		map("n", "gK", vim.lsp.buf.signature_help, "Signature Help")
+		map("i", "<c-k>", vim.lsp.buf.signature_help, "Signature Help")
+		map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, "Code Action")
+	end,
+})
