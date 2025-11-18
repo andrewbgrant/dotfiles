@@ -6,7 +6,9 @@ return {
 		lazy = false,
 		opts = {
 			bigfile = { enabled = true },
+			quickfile = { enabled = true },
 			bufdelete = { enabled = true },
+			statuscolumn = { enabled = true },
 			lazygit = {
 				enabled = true,
 				win = {
