@@ -42,8 +42,7 @@ return {
 				width = 0.4,
 			},
 			sticky = {
-				"@buffers",
-				"#buffers",
+				"#buffer",
 			},
 
 			prompts = {
