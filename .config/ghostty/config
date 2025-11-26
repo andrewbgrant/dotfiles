@@ -11,3 +11,4 @@ cursor-style-blink = false
 cursor-style = block
 
 keybind = shift+enter=text:\x1b\r
+keybind = cmd+enter=unbind
