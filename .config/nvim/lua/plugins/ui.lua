@@ -1,6 +1,15 @@
 return {
 
-	{ "nvim-mini/mini.pairs", version = false, opts = {} },
+	{
+		"nvim-mini/mini.pairs",
+		opts = {
+			modes = { insert = true, command = true, terminal = false },
+			skip_next = [=[[%w%%%'%[%"%.%`%$]]=],
+			skip_ts = { "string" },
+			skip_unbalanced = true,
+			markdown = true,
+		},
+	},
 	{ "christoomey/vim-tmux-navigator", lazy = true, event = "VimEnter" },
 
 	{
