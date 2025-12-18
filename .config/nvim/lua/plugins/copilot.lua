@@ -5,6 +5,7 @@ local local_host = "localhost" -- "100.91.131.3"
 return {
 	{
 		"zbirenbaum/copilot.lua",
+
 		lazy = true,
 		cmd = "Copilot",
 		event = "InsertEnter",
@@ -12,14 +13,34 @@ return {
 			copilot_model = "gpt-41-copilot",
 			panel = { enabled = false },
 			suggestion = {
-				enabled = false,
+				enabled = true,
+				auto_trigger = true,
 				keymap = {
 					accept = false,
+					accept_word = "<M-w>",
+					accept_line = "<M-l>",
+					next = "<M-]>",
+					prev = "<M-[>",
+					dismiss = "<C-]>",
 				},
 			},
 			filetypes = {
 				markdown = true,
 				help = true,
+			},
+		},
+		keys = {
+			{
+				"<Tab>",
+				function()
+					if require("copilot.suggestion").is_visible() then
+						require("copilot.suggestion").accept()
+					else
+						vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, false, true), "n", false)
+					end
+				end,
+				desc = "Accept Copilot or Tab",
+				mode = "i",
 			},
 		},
 	},
