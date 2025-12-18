@@ -8,6 +8,29 @@ return {
 	},
 
 	{
+
+		"sindrets/diffview.nvim",
+		lazy = true,
+		keys = {
+			{
+				"<leader>gd",
+				function()
+					local success = pcall(vim.cmd, "DiffviewClose")
+					if not success then
+						vim.cmd("DiffviewOpen")
+					end
+				end,
+				desc = "Toggle Diffview",
+			},
+			{ "<leader>gdh", "<cmd>DiffviewFileHistory<cr>", desc = "Diffview File History (all)" },
+			{ "<leader>gdf", "<cmd>DiffviewFileHistory %<cr>", desc = "Diffview File History (current)" },
+			{ "<leader>gdm", "<cmd>DiffviewOpen main<cr>", desc = "Diffview vs main" },
+			{ "<leader>gdt", "<cmd>DiffviewToggleFiles<cr>", desc = "Toggle Files Panel" },
+			{ "<leader>gdr", "<cmd>DiffviewRefresh<cr>", desc = "Refresh Diffview" },
+		},
+	},
+
+	{
 		"lewis6991/gitsigns.nvim",
 		event = { "BufReadPre", "BufNewFile" },
 		opts = {
