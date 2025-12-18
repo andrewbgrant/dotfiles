@@ -76,21 +76,4 @@ return {
 			},
 		},
 	},
-
-    {
-      "mistricky/codesnap.nvim",
-        lazy=false,
-      build = "make build_generator",
-      keys = {
-        { "<leader>ps", "<cmd>CodeSnap<cr>", mode = "x", desc = "Save selected code snapshot into clipboard" },
-        { "<leader>pS", "<cmd>CodeSnapSave<cr>", mode = "x", desc = "Save selected code snapshot in ~/Pictures" },
-      },
-      opts = {
-        save_path = "~/Pictures",
-             watermark = "",
-        has_breadcrumbs = true,
-        bg_padding = 0
-      },
-    }
-
 }
