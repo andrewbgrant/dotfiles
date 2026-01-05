@@ -21,7 +21,6 @@ return {
 
 	{
 		"MeanderingProgrammer/render-markdown.nvim",
-		lazy = "InsertEnter",
 		ft = { "markdown", "codecompanion" },
 		dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.icons" },
 		opts = {
@@ -122,5 +121,22 @@ return {
 		end,
 	},
 
-	{ "echasnovski/mini.cursorword", version = "*", opts = {}, delay = 300 },
+	{ "echasnovski/mini.cursorword", version = "*", event = "BufReadPost", opts = {}, delay = 300 },
+
+	{
+		"echasnovski/mini.surround",
+		version = "*",
+		event = "BufReadPost",
+		opts = {
+			mappings = {
+				add = "sa",
+				delete = "sd",
+				find = "sf",
+				find_left = "sF",
+				highlight = "sh",
+				replace = "sr",
+				update_n_lines = "sn",
+			},
+		},
+	},
 }
