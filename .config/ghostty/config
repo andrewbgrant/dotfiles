@@ -16,3 +16,8 @@ keybind = cmd+enter=unbind
 macos-window-shadow = false
 mouse-hide-while-typing = true
 
+clipboard-paste-protection = false
+shell-integration = zsh
+keybind = delete=csi:3~
+keybind = backspace=text:\x7f
+
