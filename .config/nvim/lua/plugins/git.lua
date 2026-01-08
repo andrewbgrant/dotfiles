@@ -58,7 +58,7 @@ return {
 				map({ "n", "v" }, "<leader>gs", gs.stage_hunk, "Stage Hunk")
 				map("n", "<leader>gb", function()
 					gs.blame_line({ full = true })
-				end)
+				end, "Blame Line")
 				map({ "n", "v" }, "<leader>gr", gs.reset_hunk, "Reset Hunk")
 				map({ "n", "v" }, "<leader>gp", gs.preview_hunk, "Preview Hunk")
                 -- stylua: ignore start

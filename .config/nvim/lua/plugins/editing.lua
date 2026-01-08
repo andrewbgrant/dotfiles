@@ -91,6 +91,14 @@ return {
 		opts = {
 			delay = 300,
 			icons = { mappings = false },
+			spec = {
+				{ "<leader>c", group = "Code" },
+				{ "<leader>d", group = "Debug" },
+				{ "<leader>f", group = "Find" },
+				{ "<leader>g", group = "Git" },
+				{ "<leader>p", group = "Preferences" },
+				{ "<leader>w", group = "Window" },
+			},
 		},
 		keys = {
 			{
