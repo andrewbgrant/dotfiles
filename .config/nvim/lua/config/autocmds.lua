@@ -114,6 +114,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		map("n", "K", vim.lsp.buf.hover, "Hover")
 		map("n", "gK", vim.lsp.buf.signature_help, "Signature Help")
 		map("i", "<c-k>", vim.lsp.buf.signature_help, "Signature Help")
-		map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, "Code Action")
+		map({ "n", "v" }, "<leader>c", vim.lsp.buf.code_action, "Code Action")
 	end,
 })

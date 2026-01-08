@@ -54,7 +54,7 @@ return {
         keys = {
             { "<c-x>",            function() Snacks.bufdelete() end,                                                  desc = "delete buffer" },
             { "<c-d>",            function() Snacks.bufdelete.other() end,                                            desc = "delete all other buffer" },
-            { "<leader>lg",       function() Snacks.lazygit() end,                                                    desc = "lazygit" },
+            { "<leader>lg",        function() Snacks.lazygit() end,                                                    desc = "Lazygit" },
 
             -- Top Pickers & Explorer
             { "<leader><leader>", function() Snacks.picker.smart({ exclude = { "*.xlsx", "*.csv" } }) end,            desc = "Find Files" },
