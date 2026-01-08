@@ -1,47 +1,9 @@
 return {
-
-	{
-		"nvim-mini/mini.pairs",
-		opts = {
-			modes = { insert = true, command = true, terminal = false },
-			skip_next = [=[[%w%%%'%[%"%.%`%$]]=],
-			skip_ts = { "string" },
-			skip_unbalanced = true,
-			markdown = true,
-		},
-	},
-	{ "christoomey/vim-tmux-navigator", lazy = true, event = "VimEnter" },
-
 	{
 		"folke/todo-comments.nvim",
 		event = "BufReadPost",
 		dependencies = { "nvim-lua/plenary.nvim" },
 		opts = {},
-	},
-
-	{
-		"MeanderingProgrammer/render-markdown.nvim",
-		ft = { "markdown", "codecompanion" },
-		dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.icons" },
-		opts = {
-			completions = { blink = { enabled = true } },
-			code = { width = "block" },
-			heading = {
-				backgrounds = {
-					"NONE",
-					"NONE",
-					"NONE",
-					"NONE",
-					"NONE",
-					"NONE",
-				},
-			},
-			latex = {
-				enabled = true,
-				converter = "latex2text",
-				highlight = "RenderMarkdownMath",
-			},
-		},
 	},
 
 	{
@@ -66,8 +28,6 @@ return {
 						"typescriptreact",
 						"vue",
 					},
-					-- full: the whole css class will be highlighted
-					-- compact: only the color will be highlighted
 					style = "full",
 				},
 				highlighters = {
@@ -107,7 +67,6 @@ return {
 				placement = "window",
 				close_on_select = false,
 				max_width = 30,
-				-- min_width = 10,
 			},
 			show_guides = true,
 			open_automatic = function()
@@ -121,22 +80,11 @@ return {
 		end,
 	},
 
-	{ "echasnovski/mini.cursorword", version = "*", event = "BufReadPost", opts = {}, delay = 300 },
-
 	{
-		"echasnovski/mini.surround",
+		"echasnovski/mini.cursorword",
 		version = "*",
 		event = "BufReadPost",
-		opts = {
-			mappings = {
-				add = "sa",
-				delete = "sd",
-				find = "sf",
-				find_left = "sF",
-				highlight = "sh",
-				replace = "sr",
-				update_n_lines = "sn",
-			},
-		},
+		opts = {},
+		delay = 300,
 	},
 }
