@@ -35,7 +35,7 @@ return {
                     theme = my_theme,
                     section_separators = { left = "", right = "" },
                     component_separators = { left = "", right = "" },
-                    globalstatus = false,
+                    globalstatus = true,
                 },
 
                 sections = {
