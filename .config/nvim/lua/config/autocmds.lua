@@ -12,7 +12,6 @@ vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
 	end,
 })
 
--- Auto-close buffers for deleted files (fixes oil.nvim E211)
 vim.api.nvim_create_autocmd({ "BufEnter", "FocusGained" }, {
 	group = augroup("cleanup_stale_buffers"),
 	callback = function()
@@ -21,11 +20,18 @@ vim.api.nvim_create_autocmd({ "BufEnter", "FocusGained" }, {
 		if bufname == "" or vim.bo[bufnr].buftype ~= "" then
 			return
 		end
-		if bufname:match("^oil://") or vim.bo[bufnr].filetype == "oil" then
+		local ft = vim.bo[bufnr].filetype
+		if bufname:match("^oil://") or ft == "oil" or ft == "dbui" or ft == "dbout" then
+			return
+		end
+		if bufname:match("/T/nvim") or bufname:match("^/tmp/") or bufname:match("^/var/folders/") then
 			return
 		end
 		if vim.fn.filereadable(bufname) == 0 then
 			vim.schedule(function()
+				if vim.bo[bufnr].buftype ~= "" then
+					return
+				end
 				local ok, snacks = pcall(require, "snacks")
 				if ok and snacks.bufdelete then
 					snacks.bufdelete(bufnr)

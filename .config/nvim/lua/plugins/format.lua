@@ -3,6 +3,7 @@ return {
 	opts = {},
 	event = { "BufWritePre" },
 	config = function()
+		vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin:" .. vim.env.PATH
 		local conform = require("conform")
 		conform.setup({
 			formatters_by_ft = {
@@ -18,6 +19,8 @@ return {
 				yaml = { "prettier" },
 				html = { "prettier" },
 				sql = { "sqlfmt" },
+				mysql = { "sqlfmt" },
+				plsql = { "sqlfmt" },
 				sh = { "shfmt" },
 			},
 

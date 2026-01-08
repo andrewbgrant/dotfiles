@@ -3,6 +3,9 @@ return {
 		"saghen/blink.cmp",
 		version = "*",
 		event = "InsertEnter",
+		dependencies = {
+			{ "saghen/blink.compat", version = "*", opts = {} },
+		},
 		config = function(_, opts)
 			vim.api.nvim_set_hl(0, "BlinkCmpItemKindMinuet", { fg = "#89b4fa" })
 			require("blink.cmp").setup(opts)
@@ -40,6 +43,11 @@ return {
 					"buffer",
 					"minuet",
 				},
+				per_filetype = {
+					sql = { "dadbod", "buffer" },
+					mysql = { "dadbod", "buffer" },
+					plsql = { "dadbod", "buffer" },
+				},
 				providers = {
 					minuet = {
 						name = "minuet",
@@ -47,6 +55,11 @@ return {
 						async = true,
 						timeout_ms = 3000,
 						score_offset = 50,
+					},
+					dadbod = {
+						name = "Dadbod",
+						module = "vim_dadbod_completion.blink",
+						score_offset = 85,
 					},
 				},
 			},
