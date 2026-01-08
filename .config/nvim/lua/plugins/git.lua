@@ -3,30 +3,16 @@ return {
 		"esmuellert/vscode-diff.nvim",
 		dependencies = { "MunifTanjim/nui.nvim" },
 		keys = {
-			{ "<leader>gR", "<cmd>CodeDiff<cr>", desc = "Git Diff" },
+			{ "<leader>gd", "<cmd>CodeDiff<cr>", desc = "Diff" },
 		},
 	},
 
 	{
-
 		"sindrets/diffview.nvim",
 		lazy = true,
 		keys = {
-			{
-				"<leader>gd",
-				function()
-					local success = pcall(vim.cmd, "DiffviewClose")
-					if not success then
-						vim.cmd("DiffviewOpen")
-					end
-				end,
-				desc = "Toggle Diffview",
-			},
-			{ "<leader>gdh", "<cmd>DiffviewFileHistory<cr>", desc = "Diffview File History (all)" },
-			{ "<leader>gdf", "<cmd>DiffviewFileHistory %<cr>", desc = "Diffview File History (current)" },
-			{ "<leader>gdm", "<cmd>DiffviewOpen main<cr>", desc = "Diffview vs main" },
-			{ "<leader>gdt", "<cmd>DiffviewToggleFiles<cr>", desc = "Toggle Files Panel" },
-			{ "<leader>gdr", "<cmd>DiffviewRefresh<cr>", desc = "Refresh Diffview" },
+			{ "<leader>gh", "<cmd>DiffviewFileHistory %<cr>", desc = "File History" },
+			{ "<leader>gH", "<cmd>DiffviewFileHistory<cr>", desc = "File History (all)" },
 		},
 	},
 
