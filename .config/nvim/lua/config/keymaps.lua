@@ -5,7 +5,7 @@ vim.keymap.set({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", ex
 vim.keymap.set({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
 
 -- copy current buffer path to clipboard
-vim.keymap.set("n", "<leader>cp", function()
+vim.keymap.set("n", "<leader>pp", function()
 	local relpath = vim.fn.expand("%:.")
 	vim.fn.setreg("+", relpath)
 	vim.notify("Copied relative path: " .. relpath, vim.log.levels.INFO)
@@ -26,7 +26,7 @@ vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Go to right window", remap = tr
 vim.keymap.set({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
 
 -- toggle inlay hints
-vim.keymap.set("n", "<leader>ch", function()
+vim.keymap.set("n", "<leader>ph", function()
 	vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 end, { desc = "Toggle Inlay Hints" })
 
@@ -37,7 +37,7 @@ vim.keymap.set("v", ">", ">gv")
 -- lazy
 vim.keymap.set("n", "<leader>pl", "<cmd>Lazy<cr>", { desc = "Lazy" })
 
-vim.keymap.set("n", "<leader>cL", function()
+vim.keymap.set("n", "<leader>pD", function()
 	-- Get diagnostics for the current line
 	local diagnostics = vim.diagnostic.get(0, { lnum = vim.fn.line(".") - 1 })
 
@@ -67,15 +67,13 @@ local diagnostic_goto = function(next, severity)
 		go({ severity = severity })
 	end
 end
-vim.keymap.set("n", "<leader>cl", function()
+vim.keymap.set("n", "<leader>pd", function()
 	vim.diagnostic.open_float({ border = "single" })
 end, { desc = "Line Diagnostics" })
 
 vim.keymap.set("n", "]d", diagnostic_goto(true), { desc = "Next Diagnostic" })
 vim.keymap.set("n", "[d", diagnostic_goto(false), { desc = "Prev Diagnostic" })
 
--- Terminal Mappings
-vim.keymap.set("n", "<leader>T", "<cmd>term<cr>", { desc = "Open Terminal" })
 vim.keymap.set("t", "<esc>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
 vim.keymap.set("t", "<C-h>", "<cmd>wincmd h<cr>", { desc = "Go to left window" })
 vim.keymap.set("t", "<C-j>", "<cmd>wincmd j<cr>", { desc = "Go to lower window" })
