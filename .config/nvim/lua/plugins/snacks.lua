@@ -80,7 +80,7 @@ return {
 
             { "<leader>t",        function() Snacks.terminal() end,                                                   desc = "Terminal" },
 
-            { "<leader>sk",       function() Snacks.picker.keymaps() end,                                             desc = "Keymaps" },
+            { "<leader>fk",       function() Snacks.picker.keymaps() end,                                             desc = "Keymaps" },
 
             {
                 "<leader>o",
