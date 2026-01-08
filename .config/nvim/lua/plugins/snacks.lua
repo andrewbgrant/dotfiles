@@ -57,7 +57,7 @@ return {
             { "<leader>lg",       function() Snacks.lazygit() end,                                                    desc = "lazygit" },
 
             -- Top Pickers & Explorer
-            { "<leader><leader>", function() Snacks.picker.smart({ exclude = { "*.xlsx", "*.csv" } }) end,            desc = "Smart Find Files" },
+            { "<leader><leader>", function() Snacks.picker.smart({ exclude = { "*.xlsx", "*.csv" } }) end,            desc = "Find Files" },
             { "<leader>ff",       function() Snacks.picker.files({ exclude = { "*.xlsx", "*.csv" } }) end,            desc = "Find Files" },
             { "<leader>b",        function() Snacks.picker.buffers({ layout = "select", sort_lastused = false }) end, desc = "Buffers" },
             { "<leader>fc",       function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end,             desc = "Find Config File" },
@@ -121,7 +121,7 @@ return {
                         end,
                     })
                 end,
-                desc = "Fuzzy Find Directories"
+                desc = "Open Directories"
             },
 
         },
