@@ -25,9 +25,6 @@ vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Go to right window", remap = tr
 -- Clear search with <esc>
 vim.keymap.set({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
 
---keywordprg
-vim.keymap.set("n", "<leader>cK", "<cmd>norm! K<cr>", { desc = "Keywordprg" })
-
 -- toggle inlay hints
 vim.keymap.set("n", "<leader>ch", function()
 	vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
