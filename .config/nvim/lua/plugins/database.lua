@@ -12,7 +12,24 @@ return {
             { "tpope/vim-dadbod" },
             { "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql", "plsql" } },
         },
-        keys = { { "<leader>D", "<cmd>DBUIToggle<cr>", desc = "Database" } },
+        keys = {
+            {
+                "<leader>D",
+                function()
+                    for _, tabnr in ipairs(vim.api.nvim_list_tabpages()) do
+                        for _, winnr in ipairs(vim.api.nvim_tabpage_list_wins(tabnr)) do
+                            local bufnr = vim.api.nvim_win_get_buf(winnr)
+                            if vim.bo[bufnr].filetype == "dbui" then
+                                vim.api.nvim_set_current_tabpage(tabnr)
+                                return
+                            end
+                        end
+                    end
+                    vim.cmd("tabnew | DBUI")
+                end,
+                desc = "Database",
+            },
+        },
         init = function()
             vim.g.db_ui_use_nerd_fonts = true
             vim.g.db_ui_auto_execute_table_helpers = 1
