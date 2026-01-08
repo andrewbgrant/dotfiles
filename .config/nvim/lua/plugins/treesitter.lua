@@ -30,7 +30,7 @@ return {
 				function()
 					require("treesitter-context").toggle()
 				end,
-				desc = "Toggle Treesitter Context",
+				desc = "TSContext",
 			},
 		},
 		config = function(_, opts)
