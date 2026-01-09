@@ -1,6 +1,6 @@
 return {
 	{
-		"esmuellert/vscode-diff.nvim",
+		"esmuellert/codediff.nvim",
 		dependencies = { "MunifTanjim/nui.nvim" },
 		keys = {
 			{ "<leader>gd", "<cmd>CodeDiff<cr>", desc = "Diff" },
