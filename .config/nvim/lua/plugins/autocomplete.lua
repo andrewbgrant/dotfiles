@@ -21,7 +21,7 @@ return {
 			},
 			completion = {
 				ghost_text = { enabled = false },
-				trigger = { prefetch_on_insert = false },
+				trigger = { prefetch_on_insert = true },
 				documentation = {
 					auto_show = true,
 					auto_show_delay_ms = 20,
@@ -53,7 +53,7 @@ return {
 						name = "minuet",
 						module = "minuet.blink",
 						async = true,
-						timeout_ms = 3000,
+						timeout_ms = 1500,
 						score_offset = 50,
 					},
 					dadbod = {
