@@ -11,6 +11,9 @@ return {
 				skip_confirm_for_simple_edits = true,
 				prompt_save_on_select_new_entry = true,
 				default_file_explorer = true,
+				win_options = {
+					signcolumn = "yes:2",
+				},
 				view_options = {
 					show_hidden = true,
 					is_always_hidden = function(name, bufnr)
@@ -33,6 +36,37 @@ return {
 					require("oil").open(vim.fn.getcwd())
 				end,
 				desc = "Open oil (project root)",
+			},
+		},
+	},
+	{
+		"refractalize/oil-git-status.nvim",
+		dependencies = { "stevearc/oil.nvim" },
+		opts = {
+			show_ignored = false,
+			symbols = {
+				index = {
+					["A"] = "+",
+					["D"] = "✗",
+					["M"] = "~",
+					["R"] = "→",
+					["C"] = "⎘",
+					["U"] = "‼",
+					["?"] = "?",
+					["!"] = "",
+					[" "] = " ",
+				},
+				working_tree = {
+					["A"] = "+",
+					["D"] = "✗",
+					["M"] = "~",
+					["R"] = "→",
+					["C"] = "⎘",
+					["U"] = "‼",
+					["?"] = "?",
+					["!"] = "",
+					[" "] = " ",
+				},
 			},
 		},
 	},
