@@ -135,6 +135,7 @@ alias ls='eza -lha --group-directories-first --icons'
 alias ll='eza'
 alias ipy='ipython'
 alias lg='lazygit'
+alias ld='lazydocker'
 alias venv='source venv/bin/activate 2>/dev/null || source .venv/bin/activate'
 
 # Directory navigation
