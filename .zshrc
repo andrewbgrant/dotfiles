@@ -109,16 +109,14 @@ RESET='%f'
 
 # Git Prompt
 git_prompt_info() {
-  local branch_name
-  branch_name=$(git symbolic-ref HEAD 2> /dev/null) || return 0
-  branch_name=${branch_name##refs/heads/}
-  local git_status=""
-  if git diff --quiet 2> /dev/null; then
-    git_status="${GREEN}✔"
-  else
-    git_status="${RED}✗"
+  local branch_name git_status_output indicator
+  branch_name=$(git symbolic-ref --short HEAD 2> /dev/null || git rev-parse --short HEAD 2> /dev/null) || return 0
+  git_status_output=$(git status --porcelain=2 --branch --untracked-files=no 2> /dev/null) || return 0
+  indicator="${GREEN}✔"
+  if [[ $git_status_output =~ $'\n'(1|2|u) ]]; then
+    indicator="${RED}✗"
   fi
-  echo "${PURPLE}(${branch_name} ${git_status}${PURPLE})${RESET}"
+  echo "${PURPLE}(${branch_name} ${indicator}${PURPLE})${RESET}"
 }
 setopt PROMPT_SUBST
 PROMPT="${BLUE}%3~ \$(git_prompt_info)${RESET}
