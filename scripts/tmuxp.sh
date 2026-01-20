@@ -13,12 +13,7 @@ function tmuxp() {
     # Check if the session exists
     if ! tmux has-session -t "$session_name" 2>/dev/null; then
         # Create a new session with the project name
-        tmux new-session -d -s "$session_name" -n "editor"
-
-        # Create windows for different purposes
-        tmux new-window -t "$session_name:1" -n "server"
-        tmux new-window -t "$session_name:2"
-
+        tmux new-session -d -s "$session_name"
     fi
 
     # Attach to the session if we're not already in tmux
