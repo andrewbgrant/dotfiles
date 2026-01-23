@@ -13,6 +13,7 @@ cursor-style = block
 
 keybind = shift+enter=text:\x1b\r
 keybind = cmd+enter=unbind
+copy-on-select = clipboard
 macos-window-shadow = false
 mouse-hide-while-typing = true
 
