@@ -5,25 +5,31 @@ local config = {
 	ssh_host = "princemedici@princemedici",
 	server_args = {
 		local_context = "4096",
-		remote_context = "16384",
+		remote_context = "8192",
 		cache_type = "q8_0",
 		idle_timeout = "7200",
 	},
 }
 
-local models = {
-	local_models = {
-		{ name = "Qwen2.5-Coder-1.5B", path = vim.fn.expand("~/models/qwen2.5-coder-1.5b-q8_0.gguf") },
-		{
-			name = "Qwen3-Coder-25B-A3B",
-			path = vim.fn.expand("~/models/cerebras_Qwen3-Coder-REAP-25B-A3B-Q4_K_M.gguf"),
-		},
-	},
-	remote_models = {
-		{ name = "Qwen3-Coder-25B-A3B", path = "~/models/cerebras_Qwen3-Coder-REAP-25B-A3B-Q4_K_M.gguf" },
-		{ name = "Qwen2.5-Coder-3B", path = "~/models/qwen2.5-coder-3b-q8_0.gguf" },
-	},
-}
+local function load_models()
+	local path = vim.fn.expand("~/models/config.json")
+	local file = io.open(path, "r")
+	if not file then
+		vim.notify("~/models/config.json not found", vim.log.levels.ERROR)
+		return { local_models = {}, remote_models = {} }
+	end
+	local content = file:read("*a")
+	file:close()
+	local data = vim.json.decode(content)
+	for _, list in pairs(data) do
+		for _, model in ipairs(list) do
+			model.path = vim.fn.expand(model.path)
+		end
+	end
+	return data
+end
+
+local models = load_models()
 
 local state = {
 	current_server = nil,
@@ -301,6 +307,7 @@ return {
 					optional = {
 						max_tokens = 56,
 						top_p = 0.9,
+						stop = { "\n" },
 					},
 					template = {
 						prompt = function(prefix, suffix, _)
