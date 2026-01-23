@@ -13,6 +13,29 @@ cursor-style = block
 
 keybind = shift+enter=text:\x1b\r
 keybind = cmd+enter=unbind
+keybind = cmd+t=unbind
+keybind = cmd+shift+]=unbind
+keybind = cmd+shift+[=unbind
+keybind = cmd+1=unbind
+keybind = cmd+2=unbind
+keybind = cmd+3=unbind
+keybind = cmd+4=unbind
+keybind = cmd+5=unbind
+keybind = cmd+6=unbind
+keybind = cmd+7=unbind
+keybind = cmd+8=unbind
+keybind = cmd+9=unbind
+keybind = cmd+d=unbind
+keybind = cmd+shift+d=unbind
+keybind = cmd+s=unbind
+keybind = cmd+n=unbind
+keybind = cmd+p=unbind
+keybind = cmd+x=unbind
+keybind = cmd+s=text:\x1bs
+keybind = cmd+n=text:\x1bn
+keybind = cmd+p=text:\x1bp
+keybind = cmd+x=text:\x1bx
+
 copy-on-select = clipboard
 macos-window-shadow = false
 mouse-hide-while-typing = true
