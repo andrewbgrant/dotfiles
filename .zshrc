@@ -1,5 +1,7 @@
 # zmodload zsh/zprof
 
+bindkey -e
+
 # History
 HISTSIZE=10000
 SAVEHIST=10000
