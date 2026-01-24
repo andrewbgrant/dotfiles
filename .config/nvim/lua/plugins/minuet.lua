@@ -279,45 +279,45 @@ local function pick_model()
 end
 
 return {
-	"milanglacier/minuet-ai.nvim",
-	dependencies = { "nvim-lua/plenary.nvim" },
-	event = "InsertEnter",
-	init = function()
-		vim.api.nvim_create_user_command("LlamaModel", pick_model, {})
-		vim.api.nvim_create_user_command("LlamaStop", stop_all, {})
-		vim.keymap.set("n", "<leader>al", pick_model, { desc = "Llama Model" })
-		vim.keymap.set("n", "<leader>aL", stop_all, { desc = "Llama Stop" })
-	end,
-	config = function()
-		require("minuet").setup({
-			provider = "openai_fim_compatible",
-			request_timeout = 10,
-			throttle = 100,
-			debounce = 150,
-			context_window = 4048,
-			n_completions = 1,
-			notify = "error",
-			provider_options = {
-				openai_fim_compatible = {
-					api_key = "TERM",
-					name = "Llama.cpp",
-					end_point = get_url(config.local_host, "/v1/completions"),
-					model = "qwen2.5-coder",
-					stream = true,
-					optional = {
-						max_tokens = 56,
-						top_p = 0.9,
-						stop = { "\n" },
-					},
-					template = {
-						prompt = function(prefix, suffix, _)
-							return "<|fim_prefix|>" .. prefix .. "<|fim_suffix|>" .. suffix .. "<|fim_middle|>"
-						end,
-						suffix = false,
-					},
-				},
-			},
-		})
-		vim.defer_fn(auto_detect, 100)
-	end,
+	-- "milanglacier/minuet-ai.nvim",
+	-- dependencies = { "nvim-lua/plenary.nvim" },
+	-- event = "InsertEnter",
+	-- init = function()
+	-- 	vim.api.nvim_create_user_command("LlamaModel", pick_model, {})
+	-- 	vim.api.nvim_create_user_command("LlamaStop", stop_all, {})
+	-- 	vim.keymap.set("n", "<leader>al", pick_model, { desc = "Llama Model" })
+	-- 	vim.keymap.set("n", "<leader>aL", stop_all, { desc = "Llama Stop" })
+	-- end,
+	-- config = function()
+	-- 	require("minuet").setup({
+	-- 		provider = "openai_fim_compatible",
+	-- 		request_timeout = 10,
+	-- 		throttle = 100,
+	-- 		debounce = 150,
+	-- 		context_window = 4048,
+	-- 		n_completions = 1,
+	-- 		notify = "error",
+	-- 		provider_options = {
+	-- 			openai_fim_compatible = {
+	-- 				api_key = "TERM",
+	-- 				name = "Llama.cpp",
+	-- 				end_point = get_url(config.local_host, "/v1/completions"),
+	-- 				model = "qwen2.5-coder",
+	-- 				stream = true,
+	-- 				optional = {
+	-- 					max_tokens = 25,
+	-- 					top_p = 0.9,
+	-- 					stop = { "\n" },
+	-- 				},
+	-- 				template = {
+	-- 					prompt = function(prefix, suffix, _)
+	-- 						return "<|fim_prefix|>" .. prefix .. "<|fim_suffix|>" .. suffix .. "<|fim_middle|>"
+	-- 					end,
+	-- 					suffix = false,
+	-- 				},
+	-- 			},
+	-- 		},
+	-- 	})
+	-- 	vim.defer_fn(auto_detect, 100)
+	-- end,
 }

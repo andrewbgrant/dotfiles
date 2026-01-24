@@ -5,6 +5,7 @@ return {
 		event = "InsertEnter",
 		dependencies = {
 			{ "saghen/blink.compat", version = "*", opts = {} },
+			{ "fang2hou/blink-copilot" },
 		},
 		config = function(_, opts)
 			vim.api.nvim_set_hl(0, "BlinkCmpItemKindMinuet", { fg = "#89b4fa" })
@@ -41,7 +42,7 @@ return {
 					"lsp",
 					"path",
 					"buffer",
-					"minuet",
+					-- "minuet",
 				},
 				per_filetype = {
 					sql = { "dadbod", "buffer" },
@@ -49,13 +50,19 @@ return {
 					plsql = { "dadbod", "buffer" },
 				},
 				providers = {
-					minuet = {
-						name = "minuet",
-						module = "minuet.blink",
+					copilot = {
+						name = "copilot",
+						module = "blink-copilot",
 						async = true,
-						timeout_ms = 1500,
-						score_offset = 50,
+						score_offset = 100,
 					},
+					-- minuet = {
+					-- 	name = "minuet",
+					-- 	module = "minuet.blink",
+					-- 	async = true,
+					-- 	timeout_ms = 1500,
+					-- 	score_offset = 50,
+					-- },
 					dadbod = {
 						name = "Dadbod",
 						module = "vim_dadbod_completion.blink",
