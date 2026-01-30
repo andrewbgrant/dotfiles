@@ -42,7 +42,7 @@ return {
 					"lsp",
 					"path",
 					"buffer",
-					-- "minuet",
+					"copilot",
 				},
 				per_filetype = {
 					sql = { "dadbod", "buffer" },
@@ -54,15 +54,8 @@ return {
 						name = "copilot",
 						module = "blink-copilot",
 						async = true,
-						score_offset = 100,
+						score_offset = 75,
 					},
-					-- minuet = {
-					-- 	name = "minuet",
-					-- 	module = "minuet.blink",
-					-- 	async = true,
-					-- 	timeout_ms = 1500,
-					-- 	score_offset = 50,
-					-- },
 					dadbod = {
 						name = "Dadbod",
 						module = "vim_dadbod_completion.blink",
