@@ -52,32 +52,33 @@ return {
 	{
 		"stevearc/aerial.nvim",
 		opts = {
+			attach_mode = "global",
+			-- backends = { "lsp", "treesitter", "markdown", "man" },
+			show_guides = true,
+			layout = {
+				default_direction = "prefer_left",
+				placement = "window",
+				resize_to_content = false,
+				max_width = 30,
+			},
+			guides = {
+				mid_item = " ├─",
+				last_item = " └─",
+				nested_top = " │ ",
+				whitespace = "   ",
+			},
 			close_automatic_events = {
 				"unfocus",
 				"switch_buffer",
 			},
-			guides = {
-				nested_top = " │ ",
-				mid_item = " ├─",
-				last_item = " └─",
-				whitespace = "   ",
-			},
-			layout = {
-				default_direction = "prefer_left",
-				placement = "window",
-				close_on_select = false,
-				max_width = 30,
-			},
-			show_guides = true,
 			open_automatic = function()
 				local aerial = require("aerial")
 				return vim.api.nvim_win_get_width(0) > 80 and not aerial.was_closed()
 			end,
 		},
-		config = function(_, opts)
-			require("aerial").setup(opts)
-			vim.keymap.set("n", "<leader>pa", "<cmd>AerialToggle<cr>", { silent = true })
-		end,
+		keys = {
+			{ "<leader>pa", "<cmd>AerialToggle<cr>", desc = "Aerial (Symbols)" },
+		},
 	},
 
 	{
