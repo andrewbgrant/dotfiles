@@ -77,6 +77,33 @@ return {
             { "gd",               function() Snacks.picker.lsp_definitions() end,                                     desc = "Goto Definition" },
             { "gD",               function() Snacks.picker.lsp_declarations() end,                                    desc = "Goto Declaration" },
 
+            -- Directory-scoped search (Oil or current buffer's directory)
+            {
+                "<leader>.",
+                function()
+                    local dir
+                    local ok, oil = pcall(require, "oil")
+                    if ok then
+                        dir = oil.get_current_dir()
+                    end
+                    dir = dir or vim.fn.expand("%:p:h")
+                    Snacks.picker.files({ cwd = dir })
+                end,
+                desc = "Find Files (current dir)"
+            },
+            {
+                "<leader>,",
+                function()
+                    local dir
+                    local ok, oil = pcall(require, "oil")
+                    if ok then
+                        dir = oil.get_current_dir()
+                    end
+                    dir = dir or vim.fn.expand("%:p:h")
+                    Snacks.picker.grep({ dirs = { dir } })
+                end,
+                desc = "Grep (current dir)"
+            },
 
             { "<leader>t",        function() Snacks.terminal() end,                                                   desc = "Terminal" },
 
