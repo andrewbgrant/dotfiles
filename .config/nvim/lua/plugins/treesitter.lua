@@ -51,29 +51,4 @@ return {
 		keys = { { "<leader>pm", "<cmd>Mason<cr>", desc = "Mason" } },
 		opts = {},
 	},
-
-	{
-		"williamboman/mason-lspconfig.nvim",
-		dependencies = { "mason-org/mason.nvim" },
-		event = { "BufReadPre", "BufNewFile" },
-		config = function()
-			require("mason-lspconfig").setup({
-				automatic_enable = true,
-				ensure_installed = {
-					"basedpyright",
-					"bashls",
-					"eslint",
-					"lua_ls",
-					"jsonls",
-					"ruff",
-					"html",
-					"yamlls",
-					"rust_analyzer",
-					"marksman",
-					"ts_ls",
-					"texlab",
-				},
-			})
-		end,
-	},
 }

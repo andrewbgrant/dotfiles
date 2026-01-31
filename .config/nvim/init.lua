@@ -24,6 +24,7 @@ require("lazy").setup({ import = "plugins" }, {
 })
 
 require("config")
+require("config.lsp")
 vim.diagnostic.config({
 	virtual_text = true,
 	float = {

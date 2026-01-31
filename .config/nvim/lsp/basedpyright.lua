@@ -1,4 +1,5 @@
 return {
+	name = "basedpyright",
 	cmd = { "basedpyright-langserver", "--stdio" },
 	filetypes = { "python" },
 	root_markers = {

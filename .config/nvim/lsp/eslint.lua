@@ -1,4 +1,5 @@
 return {
+	name = "eslint",
 	cmd = { "vscode-eslint-language-server", "--stdio" },
 	filetypes = {
 		"javascript",
