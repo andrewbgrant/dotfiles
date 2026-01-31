@@ -63,11 +63,6 @@ return {
 	},
 
 	{
-		"smjonas/inc-rename.nvim",
-		opts = {},
-	},
-
-	{
 		"folke/ts-comments.nvim",
 		opts = {},
 		event = "VeryLazy",
