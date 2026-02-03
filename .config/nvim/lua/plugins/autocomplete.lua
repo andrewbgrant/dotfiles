@@ -5,7 +5,6 @@ return {
 		event = "InsertEnter",
 		dependencies = {
 			{ "saghen/blink.compat", version = "*", opts = {} },
-			{ "fang2hou/blink-copilot" },
 		},
 		config = function(_, opts)
 			vim.api.nvim_set_hl(0, "BlinkCmpItemKindMinuet", { fg = "#89b4fa" })
@@ -38,30 +37,23 @@ return {
 			},
 			fuzzy = { implementation = "prefer_rust_with_warning" },
 			sources = {
-				default = {
-					"lsp",
-					"path",
-					"buffer",
-					"copilot",
-				},
+			default = {
+				"lsp",
+				"path",
+				"buffer",
+			},
 				per_filetype = {
 					sql = { "dadbod", "buffer" },
 					mysql = { "dadbod", "buffer" },
 					plsql = { "dadbod", "buffer" },
 				},
-				providers = {
-					copilot = {
-						name = "copilot",
-						module = "blink-copilot",
-						async = true,
-						score_offset = 75,
-					},
-					dadbod = {
-						name = "Dadbod",
-						module = "vim_dadbod_completion.blink",
-						score_offset = 85,
-					},
+			providers = {
+				dadbod = {
+					name = "Dadbod",
+					module = "vim_dadbod_completion.blink",
+					score_offset = 85,
 				},
+			},
 			},
 		},
 		opts_extend = { "sources.default" },
