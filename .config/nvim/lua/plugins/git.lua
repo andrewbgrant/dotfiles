@@ -2,17 +2,16 @@ return {
 	{
 		"esmuellert/codediff.nvim",
 		dependencies = { "MunifTanjim/nui.nvim" },
+		cmd = "CodeDiff",
 		keys = {
 			{ "<leader>gd", "<cmd>CodeDiff<cr>", desc = "Diff" },
-		},
-	},
-
-	{
-		"sindrets/diffview.nvim",
-		lazy = true,
-		keys = {
-			{ "<leader>gh", "<cmd>DiffviewFileHistory %<cr>", desc = "File History" },
-			{ "<leader>gH", "<cmd>DiffviewFileHistory<cr>", desc = "File History (all)" },
+			{ "<leader>gp", "<cmd>CodeDiff main...<cr>", desc = "PR Diff (merge-base)" },
+			{ "<leader>gD", "<cmd>CodeDiff main<cr>", desc = "Diff vs main" },
+			{ "<leader>gf", "<cmd>CodeDiff file HEAD<cr>", desc = "File vs HEAD" },
+			{ "<leader>gF", "<cmd>CodeDiff file HEAD~1<cr>", desc = "File vs HEAD~1" },
+			{ "<leader>gt", "<cmd>CodeDiff history origin/main..HEAD<cr>", desc = "PR Review (commits)" },
+			{ "<leader>gh", "<cmd>CodeDiff history %<cr>", desc = "File History" },
+			{ "<leader>gH", "<cmd>CodeDiff history<cr>", desc = "File History (all)" },
 		},
 	},
 
