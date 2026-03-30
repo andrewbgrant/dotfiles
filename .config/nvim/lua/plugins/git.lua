@@ -5,7 +5,6 @@ return {
 		cmd = "CodeDiff",
 		keys = {
 			{ "<leader>gd", "<cmd>CodeDiff<cr>", desc = "Diff" },
-			{ "<leader>gp", "<cmd>CodeDiff main...<cr>", desc = "PR Diff (merge-base)" },
 			{ "<leader>gD", "<cmd>CodeDiff main<cr>", desc = "Diff vs main" },
 			{ "<leader>gf", "<cmd>CodeDiff file HEAD<cr>", desc = "File vs HEAD" },
 			{ "<leader>gF", "<cmd>CodeDiff file HEAD~1<cr>", desc = "File vs HEAD~1" },
