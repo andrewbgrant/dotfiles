@@ -65,8 +65,8 @@ return {
             { "<leader>fg",       function() Snacks.picker.grep() end,                                                desc = "Grep" },
             { "<leader>fG",       function() Snacks.picker.grep_buffers() end,                                        desc = "Grep Buffers" },
             -- search
-            { "<leader>fd",       function() Snacks.picker.diagnostics({ severity = { vim.diagnostic.severity.ERROR, vim.diagnostic.severity.WARN, vim.diagnostic.severity.INFO } }) end, desc = "Diagnostics" },
-            { "<leader>fD",       function() Snacks.picker.diagnostics_buffer({ severity = { vim.diagnostic.severity.ERROR, vim.diagnostic.severity.WARN, vim.diagnostic.severity.INFO } }) end, desc = "Buffer Diagnostics" },
+            { "<leader>fd",       function() Snacks.picker.diagnostics() end, desc = "Diagnostics" },
+            { "<leader>fD",       function() Snacks.picker.diagnostics_buffer() end, desc = "Buffer Diagnostics" },
             { "<leader>fh",       function() Snacks.picker.help() end,                                                desc = "Help Pages" },
             { "<leader>n",        function() Snacks.picker.notifications() end,                                       desc = "noitifications" },
             -- LSP
