@@ -5,7 +5,7 @@ vim.g.autoformat = true
 
 local opt = vim.opt
 
-opt.shortmess:append({ W = true, I = true, c = true, C = true })
+opt.shortmess:append({ W = true, c = true, C = true })
 opt.confirm = true
 
 opt.showcmd = true
