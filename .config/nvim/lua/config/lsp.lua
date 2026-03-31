@@ -6,7 +6,6 @@ local install_commands = {
 	tsgo = "go install github.com/microsoft/typescript-go/cmd/tsgo@latest",
 	lua_ls = "brew install lua-language-server",
 	bashls = "npm install -g bash-language-server",
-	eslint = "npm install -g vscode-langservers-extracted",
 	html = "npm install -g vscode-langservers-extracted",
 	jsonls = "npm install -g vscode-langservers-extracted",
 	marksman = "brew install marksman",
@@ -31,7 +30,7 @@ local function command_exists(cmd)
 			return true
 		end
 	end
-	
+
 	local mason_cmd = mason_bin .. "/" .. cmd
 	local stat = vim.uv.fs_stat(mason_cmd)
 	return stat ~= nil
@@ -83,12 +82,12 @@ local function get_cmd_path(cmd)
 			return result:gsub("%s+$", "")
 		end
 	end
-	
+
 	local mason_cmd = mason_bin .. "/" .. cmd
 	if vim.uv.fs_stat(mason_cmd) then
 		return mason_cmd
 	end
-	
+
 	return nil
 end
 
