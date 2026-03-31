@@ -18,7 +18,7 @@ local install_commands = {
 }
 
 local function file_exists(path)
-	local stat = vim.loop.fs_stat(path)
+	local stat = vim.uv.fs_stat(path)
 	return stat ~= nil
 end
 
@@ -33,7 +33,7 @@ local function command_exists(cmd)
 	end
 	
 	local mason_cmd = mason_bin .. "/" .. cmd
-	local stat = vim.loop.fs_stat(mason_cmd)
+	local stat = vim.uv.fs_stat(mason_cmd)
 	return stat ~= nil
 end
 
@@ -85,7 +85,7 @@ local function get_cmd_path(cmd)
 	end
 	
 	local mason_cmd = mason_bin .. "/" .. cmd
-	if vim.loop.fs_stat(mason_cmd) then
+	if vim.uv.fs_stat(mason_cmd) then
 		return mason_cmd
 	end
 	

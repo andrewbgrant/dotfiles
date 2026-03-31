@@ -9,7 +9,7 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then
     -- bootstrap lazy.nvim
     -- stylua: ignore
     vim.fn.system({ "git", "clone", "--filter=blob:none", "https://github.com/folke/lazy.nvim.git", "--branch=stable",
@@ -25,6 +25,7 @@ require("lazy").setup({ import = "plugins" }, {
 
 require("config")
 require("config.lsp")
+
 vim.diagnostic.config({
 	virtual_text = true,
 	float = {
@@ -33,4 +34,3 @@ vim.diagnostic.config({
 		source = "always",
 	},
 })
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "single" })
