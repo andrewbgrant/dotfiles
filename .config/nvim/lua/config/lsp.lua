@@ -3,7 +3,7 @@ local mason_bin = vim.fn.stdpath("data") .. "/mason/bin"
 
 local install_commands = {
 	basedpyright = "pip install basedpyright",
-	ts_ls = "npm install -g typescript-language-server",
+	tsgo = "go install github.com/microsoft/typescript-go/cmd/tsgo@latest",
 	lua_ls = "brew install lua-language-server",
 	bashls = "npm install -g bash-language-server",
 	eslint = "npm install -g vscode-langservers-extracted",
