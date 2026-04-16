@@ -39,8 +39,6 @@ return {
 						filename_first = true,
 						filename_only = false,
 						icon_width = 2,
-						truncate = 56, -- truncate the file path to (roughly) this length
-						git_status_hl = true, -- use the git status highlight group for the filename
 					},
 				},
 			},
