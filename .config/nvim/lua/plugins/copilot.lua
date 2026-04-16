@@ -1,28 +1,20 @@
 return {
-	"zbirenbaum/copilot.lua",
+	"github/copilot.vim",
 	cmd = "Copilot",
 	event = "InsertEnter",
-	opts = {
-		filetypes = {
-			sh = function()
-				if string.match(vim.fs.basename(vim.api.nvim_buf_get_name(0)), "^%.env.*") then
-					return false
-				end
-				return true
+	config = function()
+		vim.g.copilot_no_tab_map = true
+
+		vim.api.nvim_create_autocmd("BufRead", {
+			pattern = ".env*",
+			callback = function()
+				vim.b.copilot_enabled = false
 			end,
-		},
-		suggestion = {
-			enabled = true,
-			auto_trigger = true,
-			keymap = {
-				accept = "<C-l>",
-				accept_word = false,
-				accept_line = false,
-				next = "<M-]>",
-				prev = "<M-[>",
-				dismiss = "<C-]>",
-			},
-		},
-		panel = { enabled = false },
-	},
+		})
+
+		vim.keymap.set("i", "<C-l>", 'copilot#Accept("")', { expr = true, replace_keycodes = false })
+		vim.keymap.set("i", "<M-]>", "<Plug>(copilot-next)")
+		vim.keymap.set("i", "<M-[>", "<Plug>(copilot-prev)")
+		vim.keymap.set("i", "<C-]>", "<Plug>(copilot-dismiss)")
+	end,
 }
