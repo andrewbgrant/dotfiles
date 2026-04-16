@@ -147,9 +147,39 @@ alt-shift-k = ['join-with up', 'mode main']
 alt-shift-l = ['join-with right', 'mode main']
 
 
-#[[on-window-detected]]
-#if.workspace = '2'
-#run = 'layout floating'
+[[on-window-detected]]
+if.workspace = '1'
+run = 'layout floating'
+[[on-window-detected]]
+if.workspace = '2'
+run = 'layout floating'
+[[on-window-detected]]
+if.workspace = '3'
+run = 'layout floating'
+[[on-window-detected]]
+if.workspace = '4'
+run = 'layout floating'
+[[on-window-detected]]
+if.workspace = '5'
+run = 'layout floating'
+[[on-window-detected]]
+if.workspace = '6'
+run = 'layout floating'
+[[on-window-detected]]
+if.workspace = '7'
+run = 'layout floating'
+[[on-window-detected]]
+if.workspace = '8'
+run = 'layout floating'
+[[on-window-detected]]
+if.workspace = '9'
+run = 'layout floating'
+[[on-window-detected]]
+if.workspace = 's'
+run = 'layout floating'
+[[on-window-detected]]
+if.workspace = 'c'
+run = 'layout floating'
 
 [[on-window-detected]]
 if.app-id = "com.apple.finder"
