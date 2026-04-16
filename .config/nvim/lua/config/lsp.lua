@@ -13,6 +13,7 @@ local install_commands = {
 	rust_analyzer = "rustup component add rust-analyzer",
 	tailwindcss = "npm install -g @tailwindcss/language-server",
 	texlab = "brew install texlab",
+	xml = "brew install lemminx",
 	yamlls = "npm install -g yaml-language-server",
 }
 
