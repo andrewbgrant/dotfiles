@@ -34,6 +34,12 @@ return {
 			picker = {
 				enabled = true,
 				ui_select = true,
+				layout = {
+					preset = "default",
+					layout = {
+						width = 0.92,
+					},
+				},
 				formatters = {
 					file = {
 						filename_first = true,

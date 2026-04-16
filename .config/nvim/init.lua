@@ -30,7 +30,7 @@ vim.diagnostic.config({
 	virtual_text = false,
 	float = {
 		focusable = false,
-		border = "single",
+		border = "rounded",
 		source = "always",
 	},
 })

@@ -117,9 +117,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		end
 
 		map("n", "gy", vim.lsp.buf.type_definition, "Goto Type Definition")
-		map("n", "K", function() vim.lsp.buf.hover({ border = "single" }) end, "Hover")
-		map("n", "gK", function() vim.lsp.buf.signature_help({ border = "single" }) end, "Signature Help")
-		map("i", "<c-k>", function() vim.lsp.buf.signature_help({ border = "single" }) end, "Signature Help")
+		map("n", "K", function() vim.lsp.buf.hover({ border = "rounded" }) end, "Hover")
+		map("n", "gK", function() vim.lsp.buf.signature_help({ border = "rounded" }) end, "Signature Help")
+		map("i", "<c-k>", function() vim.lsp.buf.signature_help({ border = "rounded" }) end, "Signature Help")
 		map({ "n", "v" }, "<leader>c", vim.lsp.buf.code_action, "Code Action")
 	end,
 })

@@ -68,7 +68,7 @@ local diagnostic_goto = function(next, severity)
 	end
 end
 vim.keymap.set("n", "<leader>pd", function()
-	vim.diagnostic.open_float({ border = "single" })
+	vim.diagnostic.open_float({ border = "rounded" })
 end, { desc = "Line Diagnostics" })
 
 vim.keymap.set("n", "]d", diagnostic_goto(true), { desc = "Next Diagnostic" })
