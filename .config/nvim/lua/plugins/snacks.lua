@@ -65,6 +65,7 @@ return {
             { "<leader>ff",       function() Snacks.picker.files({ exclude = { "*.xlsx", "*.csv" } }) end,            desc = "Find Files" },
             { "<leader>b",        function() Snacks.picker.buffers({ layout = "select", sort_lastused = false }) end, desc = "Buffers" },
             { "<leader>fc",       function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end,             desc = "Find Config File" },
+            { "<leader>fj",       function() Snacks.picker.jumps() end,                                               desc = "Jumps" },
             -- Grep
             { "<leader>fg",       function() Snacks.picker.grep() end,                                                desc = "Grep" },
             { "<leader>fG",       function() Snacks.picker.grep_buffers() end,                                        desc = "Grep Buffers" },
