@@ -154,7 +154,7 @@ vim.keymap.set("n", "<S-l>", function()
 end, { desc = "Next Buffer" })
 
 -- Tab management
--- vim.keymap.set("n", "<leader>tc", "<cmd>tabnew<cr>", { desc = "Create Tab" })
--- vim.keymap.set("n", "<leader>tx", "<cmd>tabclose<cr>", { desc = "Close Tab" })
--- vim.keymap.set("n", "<leader>tn", "<cmd>tabnext<cr>", { desc = "Next Tab" })
--- vim.keymap.set("n", "<leader>tp", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
+vim.keymap.set("n", "<leader>wn", "<cmd>tabnew<cr>", { desc = "Create Tab" })
+-- vim.keymap.set("n", "<leader>wc", "<cmd>tabclose<cr>", { desc = "Close Tab" })
+vim.keymap.set("n", "<leader>w]", "<cmd>tabnext<cr>", { desc = "Next Tab" })
+vim.keymap.set("n", "<leader>w[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
