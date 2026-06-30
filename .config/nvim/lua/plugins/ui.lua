@@ -59,7 +59,8 @@ return {
 				default_direction = "prefer_left",
 				placement = "window",
 				resize_to_content = false,
-				max_width = 30,
+				min_width = 25,
+				max_width = 25,
 			},
 			guides = {
 				mid_item = " ├─",
