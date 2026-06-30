@@ -1,3 +1,23 @@
+--- Keeps LSP symbols focused on named code structure.
+---
+--- TypeScript servers report anonymous callbacks as ordinary Function symbols,
+--- which makes the picker noisy even after filtering by SymbolKind. The parent
+--- walk preserves useful descendants while skipping generic callback wrappers.
+---@param item snacks.picker.finder.Item
+---@return boolean
+local function keep_lsp_symbol(item)
+	local parent = item.parent
+	local parent_name = parent and parent.name or ""
+	while parent and (parent_name == "<function>" or parent_name:match("%f[%w]callback$")) do
+		parent = parent.parent
+		parent_name = parent and parent.name or ""
+	end
+	item.parent = parent
+
+	local name = item.name or ""
+	return name ~= "<function>" and not name:match("%f[%w]callback$")
+end
+
 return {
 
 	{
@@ -57,7 +77,7 @@ return {
         -- stylua: ignore
         keys = {
             { "<c-x>",            function() Snacks.bufdelete() end,                                                  desc = "delete buffer" },
-            { "<c-d>",            function() Snacks.bufdelete.other() end,                                            desc = "delete all other buffer" },
+            -- { "<c-d>",            function() Snacks.bufdelete.other() end,                                            desc = "delete all other buffer" },
             { "<leader>lg",        function() Snacks.lazygit() end,                                                    desc = "Lazygit" },
 
             -- Top Pickers & Explorer
@@ -75,7 +95,24 @@ return {
             { "<leader>fh",       function() Snacks.picker.help() end,                                                desc = "Help Pages" },
             { "<leader>n",        function() Snacks.picker.notifications() end,                                       desc = "noitifications" },
             -- LSP
-            { "<leader>fs",       function() Snacks.picker.lsp_symbols() end,                                         desc = "LSP Symbols" },
+            { "<leader>fs",       function() Snacks.picker.lsp_symbols({
+                filter = {
+                    default = {
+                        "Class",
+                        "Enum",
+                        "Field",
+                        "Function",
+                        "Interface",
+                        "Method",
+                        "Module",
+                        "Namespace",
+                        "Package",
+                        "Struct",
+                        "Trait",
+                    },
+                },
+                transform = keep_lsp_symbol,
+            }) end,                                         desc = "LSP Symbols" },
             { "<leader>fS",       function() Snacks.picker.lsp_workspace_symbols() end,                               desc = "LSP Workspace Symbols" },
             { "<leader>fr",       function() Snacks.picker.lsp_references() end,                                      nowait = true,                   desc = "References" },
             { "<leader>fi",       function() Snacks.picker.lsp_implementations() end,                                 desc = "Goto Implementation" },

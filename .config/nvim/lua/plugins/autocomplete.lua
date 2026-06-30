@@ -7,7 +7,6 @@ return {
 			{ "saghen/blink.compat", version = "*", opts = {} },
 		},
 		config = function(_, opts)
-			vim.api.nvim_set_hl(0, "BlinkCmpItemKindMinuet", { fg = "#89b4fa" })
 			require("blink.cmp").setup(opts)
 		end,
 		opts = {
@@ -15,9 +14,6 @@ return {
 			appearance = {
 				use_nvim_cmp_as_default = true,
 				nerd_font_variant = "mono",
-				kind_icons = {
-					["Llama.cpp"] = "󱜚",
-				},
 			},
 			completion = {
 				ghost_text = { enabled = false },

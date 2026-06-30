@@ -5,13 +5,15 @@ background = "#1a1a17"
 background-blur-radius = 35
 background-opacity = 0.80
 
-font-family = Liga SFMono Nerd Font
-window-title-font-family = Liga SFMono Nerd Font
+# Liga SFMono Nerd Font
+# font-family = FiraCode Nerd Font
+# window-title-font-family = Liga SFMono Nerd Font
 font-size=14
 cursor-style-blink = false
 cursor-style = block
 
-keybind = shift+enter=text:\x1b\r
+# Disabled: interferes with pi's native Shift+Enter handling
+# keybind = shift+enter=text:\x1b\r
 keybind = cmd+enter=unbind
 keybind = cmd+t=unbind
 keybind = cmd+shift+]=unbind
