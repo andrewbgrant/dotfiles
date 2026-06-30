@@ -37,23 +37,23 @@ return {
 			},
 			fuzzy = { implementation = "prefer_rust_with_warning" },
 			sources = {
-			default = {
-				"lsp",
-				"path",
-				"buffer",
-			},
+				default = {
+					"lsp",
+					"path",
+					"buffer",
+				},
 				per_filetype = {
 					sql = { "dadbod", "buffer" },
 					mysql = { "dadbod", "buffer" },
 					plsql = { "dadbod", "buffer" },
 				},
-			providers = {
-				dadbod = {
-					name = "Dadbod",
-					module = "vim_dadbod_completion.blink",
-					score_offset = 85,
+				providers = {
+					dadbod = {
+						name = "Dadbod",
+						module = "vim_dadbod_completion.blink",
+						score_offset = 85,
+					},
 				},
-			},
 			},
 		},
 		opts_extend = { "sources.default" },
