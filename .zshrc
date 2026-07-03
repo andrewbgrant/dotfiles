@@ -34,9 +34,10 @@ bindkey '^P' menu-select
 
 # Custom Environment Variables
 # Project tools
-source /Users/andrewgrant/set_env.sh
+source "$HOME/set_env.sh"
 source ~/dotfiles/scripts/tmuxp.sh
 source ~/dotfiles/scripts/kill-lsp.sh
+source "$HOME/dotfiles/scripts/local-ai.sh"
 alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
 
 
@@ -80,6 +81,9 @@ nvm() {
   nvm "$@"
 }
 
+
+export PATH="/Users/andrewgrant/.bun/bin:$PATH"
+
 # Python/uv
 . "$HOME/.local/bin/env"
 eval "$(uv generate-shell-completion zsh)"
@@ -88,7 +92,7 @@ if [ -d "$HOME/.uv_global" ]; then
 fi
 
 # LM Studio CLI
-export PATH="$PATH:/Users/andrewgrant/.lmstudio/bin"
+export PATH="$PATH:$HOME/.lmstudio/bin"
 
 # pnpm
 export PNPM_HOME="/Users/andrewgrant/Library/pnpm"
@@ -210,7 +214,7 @@ function start-lms() {
 }
 
 # opencode
-export PATH=/Users/andrewgrant/.opencode/bin:$PATH
+export PATH="$HOME/.opencode/bin:$PATH"
 
 #####################################################################
 # Enhanced File Navigation & Development Functions
