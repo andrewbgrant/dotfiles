@@ -1,5 +1,6 @@
 local lsp_config_dir = vim.fn.stdpath("config") .. "/lsp"
 local mason_bin = vim.fn.stdpath("data") .. "/mason/bin"
+local go_bin = vim.fn.expand("~/go/bin")
 
 local install_commands = {
 	basedpyright = "pip install basedpyright",
@@ -8,6 +9,7 @@ local install_commands = {
 	bashls = "npm install -g bash-language-server",
 	html = "npm install -g vscode-langservers-extracted",
 	jsonls = "npm install -g vscode-langservers-extracted",
+	gopls = "go install golang.org/x/tools/gopls@latest",
 	marksman = "brew install marksman",
 	ruff = "pip install ruff",
 	rust_analyzer = "rustup component add rust-analyzer",
@@ -33,8 +35,12 @@ local function command_exists(cmd)
 	end
 
 	local mason_cmd = mason_bin .. "/" .. cmd
-	local stat = vim.uv.fs_stat(mason_cmd)
-	return stat ~= nil
+	if vim.uv.fs_stat(mason_cmd) then
+		return true
+	end
+
+	local go_cmd = go_bin .. "/" .. cmd
+	return vim.uv.fs_stat(go_cmd) ~= nil
 end
 
 local function load_lsp_configs()
@@ -87,6 +93,10 @@ local function get_cmd_path(cmd)
 	local mason_cmd = mason_bin .. "/" .. cmd
 	if vim.uv.fs_stat(mason_cmd) then
 		return mason_cmd
+	end
+	local go_cmd = go_bin .. "/" .. cmd
+	if vim.uv.fs_stat(go_cmd) then
+		return go_cmd
 	end
 
 	return nil

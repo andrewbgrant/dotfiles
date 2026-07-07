@@ -3,12 +3,15 @@ return {
 	opts = {},
 	event = { "BufWritePre" },
 	config = function()
-		vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin:" .. vim.env.PATH
+		vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin:" .. vim.fn.expand("~/go/bin") .. ":" .. vim.env.PATH
 		local conform = require("conform")
 		conform.setup({
 			formatters_by_ft = {
 				lua = { "stylua" },
 				python = { "ruff_organize_imports", "ruff_format" },
+				go = { "goimports", "gofumpt" },
+				gomod = { "gofumpt" },
+				gowork = { "gofumpt" },
 				javascript = { "prettier" },
 				typescript = { "prettier" },
 				typescriptreact = { "prettier" },
