@@ -3,8 +3,8 @@
 bindkey -e
 
 # History
-HISTSIZE=10000
-SAVEHIST=10000
+HISTSIZE=1000
+SAVEHIST=1000
 setopt HIST_IGNORE_DUPS      # Don't record duplicates
 setopt HIST_IGNORE_SPACE     # Don't record commands starting with space
 setopt SHARE_HISTORY         # Share history between sessions
@@ -16,28 +16,21 @@ setopt autocd
 export VISUAL='nvim'
 export EDITOR='nvim'
 
-export NVM_DIR="$HOME/.nvm"
 
 
 # Zsh Plugins
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 bindkey '^Y' autosuggest-accept
-
-
-source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /opt/homebrew/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 zstyle ':autocomplete:*' min-input 3
 zstyle ':autocomplete:*' delay 0.2
-bindkey '^N' menu-select
-bindkey '^P' menu-select
 
 
 # Custom Environment Variables
 # Project tools
-source "$HOME/set_env.sh"
+# source "$HOME/set_env.sh"
 source ~/dotfiles/scripts/tmuxp.sh
-source ~/dotfiles/scripts/kill-lsp.sh
-source "$HOME/dotfiles/scripts/local-ai.sh"
 alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
 
 
@@ -56,6 +49,7 @@ fi
 export PATH="/opt/homebrew/opt/mysql/bin:$PATH"
 
 # Add node to PATH directly (fast, no nvm load)
+export NVM_DIR="$HOME/.nvm"
 if [ -d "$NVM_DIR/versions/node" ]; then
   # Get default version (may be partial like "22")
   DEFAULT_VERSION=$(cat "$NVM_DIR/alias/default" 2>/dev/null)
@@ -82,7 +76,9 @@ nvm() {
 }
 
 
+# bun 
 export PATH="/Users/andrewgrant/.bun/bin:$PATH"
+[ -s "/Users/andrewgrant/.bun/_bun" ] && source "/Users/andrewgrant/.bun/_bun"
 
 # Python/uv
 . "$HOME/.local/bin/env"
@@ -94,12 +90,6 @@ fi
 # LM Studio CLI
 export PATH="$PATH:$HOME/.lmstudio/bin"
 
-# pnpm
-export PNPM_HOME="/Users/andrewgrant/Library/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
 
 
 #####################################################################
@@ -207,27 +197,24 @@ source <(fzf --zsh)
 
 #####################################################################
 
-# LMS server start function
-
-function start-lms() {
-    ssh -t desktop "source ~/.zshrc; lms load deepseek/deepseek-r1-0528-qwen3-8b && lms server start"
-}
 
 # opencode
 export PATH="$HOME/.opencode/bin:$PATH"
 
-#####################################################################
-# Enhanced File Navigation & Development Functions
+
+# oMLX: CLI shim path begin
+case ":$PATH:" in
+  *":$HOME/.omlx/bin:"*) ;;
+  *) export PATH="$HOME/.omlx/bin:$PATH" ;;
+esac
+# oMLX: CLI shim path end
 
 
-# Quick file finder and opener with preview
-function ff() {
-    local file=$(fd --type f | fzf --preview 'bat --color=always --style=numbers {}' --height 60%)
-    [ -n "$file" ] && $EDITOR "$file"
-}
-
-# Better directory navigation
-function fcd() {
-    local dir=$(fd --type d | fzf --height 40% --preview 'ls -la {}')
-    [ -n "$dir" ] && cd "$dir"
-}
+# dcg: warn if hook was silently removed from Claude Code settings
+if command -v dcg &>/dev/null && command -v jq &>/dev/null; then
+  if [ -f "$HOME/.claude/settings.json" ] && \
+     ! jq -e '.hooks.PreToolUse[]? | select(.hooks[]?.command | test("dcg$"))' \
+       "$HOME/.claude/settings.json" &>/dev/null; then
+    printf '\033[1;33m[dcg] Hook missing from ~/.claude/settings.json — run: dcg install\033[0m\n'
+  fi
+fi
