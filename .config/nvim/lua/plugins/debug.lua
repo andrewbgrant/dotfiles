@@ -1,3 +1,13 @@
+--- Starts the Go test under the cursor in the debugger.
+local function debug_go_test()
+	require("dap-go").debug_test()
+end
+
+--- Repeats the most recently debugged Go test.
+local function debug_last_go_test()
+	require("dap-go").debug_last_test()
+end
+
 return {
 	{
 		"mfussenegger/nvim-dap",
@@ -33,6 +43,29 @@ return {
 					-- Use the python from your uv global environment
 					require("dap-python").setup("/Users/andrewgrant/.uv_global/bin/python")
 				end,
+			},
+			{
+				"leoluz/nvim-dap-go",
+				ft = "go",
+				opts = {
+					delve = {
+						path = vim.fn.expand("~/go/bin/dlv"),
+					},
+				},
+				keys = {
+					{ "<leader>dg", debug_go_test, desc = "Debug Go Test" },
+					{ "<leader>dG", debug_last_go_test, desc = "Debug Last Go Test" },
+				},
+			},
+			{
+				"mxsdev/nvim-dap-vscode-js",
+				dependencies = {
+					{
+						"microsoft/vscode-js-debug",
+						version = "1.x",
+						build = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out",
+					},
+				},
 			},
 		},
 
@@ -120,33 +153,32 @@ return {
 			vim.fn.sign_define("DapBreakpoint", { text = "🔴", texthl = "", linehl = "", numhl = "" })
 			vim.fn.sign_define("DapStopped", { text = "▶️", texthl = "", linehl = "", numhl = "" })
 
-			-- Node.js/TypeScript debugging
-			dap.adapters.node2 = {
-				type = "executable",
-				command = "node",
-				args = { vim.fn.stdpath("data") .. "/mason/packages/node-debug2-adapter/out/src/nodeDebug.js" },
-			}
+			require("dap-vscode-js").setup({
+				debugger_path = vim.fn.stdpath("data") .. "/lazy/vscode-js-debug",
+				adapters = { "pwa-node" },
+			})
 
 			-- JavaScript/TypeScript configurations
 			dap.configurations.javascript = {
 				{
-					name = "Launch Node.js",
-					type = "node2",
+					name = "Launch npm run dev",
+					type = "pwa-node",
 					request = "launch",
-					program = "${file}",
-					cwd = vim.fn.getcwd(),
+					runtimeExecutable = "npm",
+					runtimeArgs = { "run", "dev" },
+					cwd = "${workspaceFolder}",
 					sourceMaps = true,
-					protocol = "inspector",
 					console = "integratedTerminal",
+					skipFiles = { "<node_internals>/**", "${workspaceFolder}/node_modules/**" },
 				},
 				{
-					name = "Attach to Node.js",
-					type = "node2",
+					name = "Attach to Node.js process",
+					type = "pwa-node",
 					request = "attach",
 					processId = require("dap.utils").pick_process,
-					cwd = vim.fn.getcwd(),
+					cwd = "${workspaceFolder}",
 					sourceMaps = true,
-					protocol = "inspector",
+					skipFiles = { "<node_internals>/**", "${workspaceFolder}/node_modules/**" },
 				},
 			}
 
@@ -154,4 +186,3 @@ return {
 		end,
 	},
 }
-
