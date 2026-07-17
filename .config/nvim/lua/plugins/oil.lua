@@ -3,7 +3,10 @@ return {
 		"stevearc/oil.nvim",
 		lazy = true,
 		opts = {},
-		dependencies = { { "echasnovski/mini.icons", opts = {} } },
+		dependencies = {
+			{ "echasnovski/mini.icons", opts = {} },
+			{ "malewicz1337/oil-git.nvim", opts = {} },
+		},
 		config = function()
 			require("oil").setup({
 				columns = { "permissions", "size", "mtime", "icon" },
@@ -39,7 +42,6 @@ return {
 			},
 		},
 	},
-	{ "malewicz1337/oil-git.nvim", dependencies = { "stevearc/oil.nvim" } },
 	-- {
 	-- 	"refractalize/oil-git-status.nvim",
 	-- 	dependencies = { "stevearc/oil.nvim" },
