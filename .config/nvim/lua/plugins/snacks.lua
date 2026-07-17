@@ -38,6 +38,7 @@ return {
 					border = "rounded", -- or "none" to remove the border
 				},
 			},
+			gh = {},
 			input = { enabled = true },
 			image = { enabled = true },
 			terminal = {
@@ -118,6 +119,11 @@ return {
             { "<leader>fi",       function() Snacks.picker.lsp_implementations() end,                                 desc = "Goto Implementation" },
             { "gd",               function() Snacks.picker.lsp_definitions() end,                                     desc = "Goto Definition" },
             { "gD",               function() Snacks.picker.lsp_declarations() end,                                    desc = "Goto Declaration" },
+
+            { "<leader>gi", function() Snacks.picker.gh_issue() end, desc = "GitHub Issues (open)" },
+            { "<leader>gI", function() Snacks.picker.gh_issue({ state = "all" }) end, desc = "GitHub Issues (all)" },
+            { "<leader>gp", function() Snacks.picker.gh_pr() end, desc = "GitHub Pull Requests (open)" },
+            { "<leader>gP", function() Snacks.picker.gh_pr({ state = "all" }) end, desc = "GitHub Pull Requests (all)" },
 
             -- Directory-scoped search (Oil or current buffer's directory)
             {
