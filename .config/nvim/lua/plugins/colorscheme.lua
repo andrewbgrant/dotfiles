@@ -1,6 +1,7 @@
 return {
 	{
 		dir = "~/Developer/voyager-nvim/voyager.nvim",
+		lazy = true,
 		priority = 1000,
 		config = function()
 			require("voyager").setup({})
