@@ -1,9 +1,9 @@
 notARepository: "quit"
 git:
   overrideGpg: true
-  paging:
-    colorArg: always
-    pager: diff-so-fancy
+  pagers:
+    - colorArg: always
+      pager: delta --dark --paging=never
 gui:
   showBottomLine: false
   border: rounded
