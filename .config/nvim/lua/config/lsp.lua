@@ -19,30 +19,44 @@ local install_commands = {
 	yamlls = "npm install -g yaml-language-server",
 }
 
+--- Checks whether a path exists without blocking startup on a subprocess.
+---@param path string
+---@return boolean
 local function file_exists(path)
-	local stat = vim.uv.fs_stat(path)
-	return stat ~= nil
+	return vim.uv.fs_stat(path) ~= nil
 end
 
-local function command_exists(cmd)
-	local handle = io.popen("which " .. cmd .. " 2>/dev/null")
-	if handle then
-		local result = handle:read("*a")
-		handle:close()
-		if result ~= "" and result ~= nil then
-			return true
-		end
+--- Truncates runaway LSP logs before clients open them.
+local function trim_lsp_log()
+	local log_path = vim.lsp.log.get_filename()
+	local stat = vim.uv.fs_stat(log_path)
+	if stat and stat.size > 10 * 1024 * 1024 then
+		vim.fn.writefile({}, log_path)
+	end
+end
+
+--- Resolves an LSP executable from PATH or the local package-manager bins.
+---@param cmd string
+---@return string?
+local function get_cmd_path(cmd)
+	local path = vim.fn.exepath(cmd)
+	if path ~= "" then
+		return path
 	end
 
 	local mason_cmd = mason_bin .. "/" .. cmd
-	if vim.uv.fs_stat(mason_cmd) then
-		return true
+	if file_exists(mason_cmd) then
+		return mason_cmd
 	end
 
 	local go_cmd = go_bin .. "/" .. cmd
-	return vim.uv.fs_stat(go_cmd) ~= nil
+	if file_exists(go_cmd) then
+		return go_cmd
+	end
 end
 
+--- Loads project LSP definitions so installed servers can be enabled centrally.
+---@return table<string, vim.lsp.Config>
 local function load_lsp_configs()
 	local configs = {}
 	if not file_exists(lsp_config_dir) then
@@ -62,14 +76,16 @@ local function load_lsp_configs()
 	return configs
 end
 
+--- Splits configured servers by whether their executable can be resolved.
+---@param configs table<string, vim.lsp.Config>
+---@return { installed: string[], missing: string[] }
 local function check_lsp_binaries(configs)
 	local missing = {}
 	local installed = {}
 
 	for name, config in pairs(configs) do
 		if config.cmd and #config.cmd > 0 then
-			local cmd = config.cmd[1]
-			if command_exists(cmd) then
+			if get_cmd_path(config.cmd[1]) then
 				table.insert(installed, name)
 			else
 				table.insert(missing, name)
@@ -80,28 +96,8 @@ local function check_lsp_binaries(configs)
 	return { installed = installed, missing = missing }
 end
 
-local function get_cmd_path(cmd)
-	local handle = io.popen("which " .. cmd .. " 2>/dev/null")
-	if handle then
-		local result = handle:read("*a")
-		handle:close()
-		if result ~= "" and result ~= nil then
-			return result:gsub("%s+$", "")
-		end
-	end
-
-	local mason_cmd = mason_bin .. "/" .. cmd
-	if vim.uv.fs_stat(mason_cmd) then
-		return mason_cmd
-	end
-	local go_cmd = go_bin .. "/" .. cmd
-	if vim.uv.fs_stat(go_cmd) then
-		return go_cmd
-	end
-
-	return nil
-end
-
+--- Registers installed servers with their resolved executable paths.
+---@param configs table<string, vim.lsp.Config>
 local function setup_lsps(configs)
 	for name, config in pairs(configs) do
 		if config.cmd and #config.cmd > 0 then
@@ -116,6 +112,7 @@ local function setup_lsps(configs)
 	end
 end
 
+--- Reports which configured LSP servers are available on this machine.
 local function lsp_status()
 	local configs = load_lsp_configs()
 	local status = check_lsp_binaries(configs)
@@ -141,6 +138,7 @@ local function lsp_status()
 	vim.notify(table.concat(output, "\n"), vim.log.levels.INFO)
 end
 
+--- Shows installation commands for configured servers that are unavailable.
 local function lsp_install_missing()
 	local configs = load_lsp_configs()
 	local status = check_lsp_binaries(configs)
@@ -161,6 +159,8 @@ local function lsp_install_missing()
 
 	vim.notify(table.concat(output, "\n"), vim.log.levels.INFO)
 end
+
+trim_lsp_log()
 
 local configs = load_lsp_configs()
 setup_lsps(configs)

@@ -1,3 +1,6 @@
+--- Creates a replaceable group for related user autocommands.
+---@param name string
+---@return integer
 local function augroup(name)
 	return vim.api.nvim_create_augroup("user_" .. name, { clear = true })
 end
@@ -8,37 +11,6 @@ vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
 	callback = function()
 		if vim.o.buftype ~= "nofile" then
 			vim.cmd("checktime")
-		end
-	end,
-})
-
-vim.api.nvim_create_autocmd({ "BufEnter", "FocusGained" }, {
-	group = augroup("cleanup_stale_buffers"),
-	callback = function()
-		local bufnr = vim.api.nvim_get_current_buf()
-		local bufname = vim.api.nvim_buf_get_name(bufnr)
-		if bufname == "" or vim.bo[bufnr].buftype ~= "" then
-			return
-		end
-		local ft = vim.bo[bufnr].filetype
-		if bufname:match("^oil://") or ft == "oil" or ft == "dbui" or ft == "dbout" then
-			return
-		end
-		if bufname:match("/T/nvim") or bufname:match("^/tmp/") or bufname:match("^/var/folders/") then
-			return
-		end
-		if vim.fn.filereadable(bufname) == 0 then
-			vim.schedule(function()
-				if vim.bo[bufnr].buftype ~= "" then
-					return
-				end
-				local ok, snacks = pcall(require, "snacks")
-				if ok and snacks.bufdelete then
-					snacks.bufdelete(bufnr)
-				else
-					pcall(vim.api.nvim_buf_delete, bufnr, { force = true })
-				end
-			end)
 		end
 	end,
 })
@@ -117,9 +89,15 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		end
 
 		map("n", "gy", vim.lsp.buf.type_definition, "Goto Type Definition")
-		map("n", "K", function() vim.lsp.buf.hover({ border = "rounded" }) end, "Hover")
-		map("n", "gK", function() vim.lsp.buf.signature_help({ border = "rounded" }) end, "Signature Help")
-		map("i", "<c-k>", function() vim.lsp.buf.signature_help({ border = "rounded" }) end, "Signature Help")
+		map("n", "K", function()
+			vim.lsp.buf.hover({ border = "rounded" })
+		end, "Hover")
+		map("n", "gK", function()
+			vim.lsp.buf.signature_help({ border = "rounded" })
+		end, "Signature Help")
+		map("i", "<c-k>", function()
+			vim.lsp.buf.signature_help({ border = "rounded" })
+		end, "Signature Help")
 		map({ "n", "v" }, "<leader>c", vim.lsp.buf.code_action, "Code Action")
 	end,
 })
