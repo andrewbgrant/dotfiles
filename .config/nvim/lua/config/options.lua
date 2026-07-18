@@ -25,7 +25,7 @@ opt.splitbelow = true
 opt.splitright = true
 opt.swapfile = false
 opt.undofile = true
-opt.updatetime = 50
+opt.updatetime = 200
 opt.wrap = false
 opt.smoothscroll = true
 opt.grepprg = "rg --vimgrep"
@@ -46,4 +46,16 @@ opt.foldlevelstart = 99
 opt.foldmethod = "expr"
 opt.foldexpr = "v:lua.vim.lsp.foldexpr()"
 vim.o.winborder = "rounded"
+opt.winblend = 10
+opt.pumblend = 10
 opt.fillchars:append({ fold = " " })
+
+vim.filetype.add({
+	extension = {
+		gohtml = "gotmpl",
+		gotmpl = "gotmpl",
+	},
+	pattern = {
+		[".*%.go%.tmpl"] = "gotmpl",
+	},
+})

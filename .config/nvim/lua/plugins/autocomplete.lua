@@ -3,9 +3,6 @@ return {
 		"saghen/blink.cmp",
 		version = "*",
 		event = "InsertEnter",
-		dependencies = {
-			{ "saghen/blink.compat", version = "*", opts = {} },
-		},
 		config = function(_, opts)
 			require("blink.cmp").setup(opts)
 		end,

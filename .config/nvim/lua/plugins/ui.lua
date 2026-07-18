@@ -87,6 +87,5 @@ return {
 		version = "*",
 		event = "BufReadPost",
 		opts = {},
-		delay = 300,
 	},
 }

@@ -41,12 +41,6 @@ return {
 	},
 
 	{
-		"nvim-treesitter/nvim-treesitter-textobjects",
-		branch = "main",
-		event = "VeryLazy",
-	},
-
-	{
 		"mason-org/mason.nvim",
 		cmd = "Mason",
 		keys = { { "<leader>pm", "<cmd>Mason<cr>", desc = "Mason" } },
