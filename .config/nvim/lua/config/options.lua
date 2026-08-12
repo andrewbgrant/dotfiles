@@ -46,7 +46,7 @@ opt.foldlevelstart = 99
 opt.foldmethod = "expr"
 opt.foldexpr = "v:lua.vim.lsp.foldexpr()"
 vim.o.winborder = "rounded"
-opt.winblend = 10
+opt.winblend = 0
 opt.pumblend = 10
 opt.fillchars:append({ fold = " " })
 
