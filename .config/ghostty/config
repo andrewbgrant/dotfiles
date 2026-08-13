@@ -47,3 +47,5 @@ shell-integration = zsh
 keybind = delete=csi:3~
 keybind = backspace=text:\x7f
 
+macos-titlebar-proxy-icon = hidden
+title = ghostty 
