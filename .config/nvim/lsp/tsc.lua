@@ -1,6 +1,8 @@
+local tsc_path = vim.fn.stdpath("data") .. "/mason/bin/tsc"
+
 return {
-	name = "tsgo",
-	cmd = { "tsgo", "--lsp", "--stdio" },
+	name = "tsc",
+	cmd = { tsc_path, "--lsp", "--stdio" },
 	filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
 	root_markers = {
 		"tsconfig.json",

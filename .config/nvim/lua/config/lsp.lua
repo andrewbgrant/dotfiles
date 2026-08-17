@@ -4,7 +4,7 @@ local go_bin = vim.fn.expand("~/go/bin")
 
 local install_commands = {
 	basedpyright = "pip install basedpyright",
-	tsgo = "go install github.com/microsoft/typescript-go/cmd/tsgo@latest",
+	tsc = "MasonInstall tsc",
 	lua_ls = "brew install lua-language-server",
 	bashls = "npm install -g bash-language-server",
 	html = "npm install -g vscode-langservers-extracted",
