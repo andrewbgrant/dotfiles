@@ -6,10 +6,16 @@ vim.keymap.set({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { desc = "Up",
 
 -- copy current buffer path to clipboard
 vim.keymap.set("n", "<leader>pp", function()
-	local relpath = vim.fn.expand("%:.")
-	vim.fn.setreg("+", relpath)
-	vim.notify("Copied relative path: " .. relpath, vim.log.levels.INFO)
-end, { desc = "Copy relative file path to clipboard" })
+	local path
+	if vim.bo.filetype == "oil" then
+		local ok, oil = pcall(require, "oil")
+		path = ok and oil.get_current_dir() or nil
+	end
+	path = path or vim.fn.expand("%:.")
+
+	vim.fn.setreg("+", path)
+	vim.notify("Copied path: " .. path, vim.log.levels.INFO)
+end, { desc = "Copy file path to clipboard" })
 
 -- Windows
 vim.keymap.set("n", "<leader>wx", "<C-W>c", { desc = "Delete window", remap = true })
