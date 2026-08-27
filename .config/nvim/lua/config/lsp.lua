@@ -11,6 +11,7 @@ local install_commands = {
 	jsonls = "npm install -g vscode-langservers-extracted",
 	gopls = "go install golang.org/x/tools/gopls@latest",
 	marksman = "brew install marksman",
+	oxlint = "MasonInstall oxlint",
 	ruff = "pip install ruff",
 	rust_analyzer = "rustup component add rust-analyzer",
 	tailwindcss = "npm install -g @tailwindcss/language-server",
