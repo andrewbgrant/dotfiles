@@ -43,12 +43,20 @@ return {
 			image = { enabled = true },
 			terminal = {
 				enabled = true,
-				keys = {
-					term_normal = {
-						"<esc>",
-						mode = "t",
-						expr = true,
-						desc = "escape to normal mode",
+				win = {
+					keys = {
+						term_toggle = {
+							"<c-/>",
+							"hide",
+							mode = "t",
+							desc = "Hide terminal",
+						},
+						term_toggle_alt = {
+							"<c-_>",
+							"hide",
+							mode = "t",
+							desc = "Hide terminal",
+						},
 					},
 				},
 			},
@@ -153,7 +161,8 @@ return {
                 desc = "Grep (current dir)"
             },
 
-            { "<leader>t",        function() Snacks.terminal() end,                                                   desc = "Terminal" },
+            { "<c-/>",             function() Snacks.terminal() end,                                                   desc = "Toggle Terminal" },
+            { "<c-_>",             function() Snacks.terminal() end,                                                   desc = "which_key_ignore" },
 
             { "<leader>fk",       function() Snacks.picker.keymaps() end,                                             desc = "Keymaps" },
 
