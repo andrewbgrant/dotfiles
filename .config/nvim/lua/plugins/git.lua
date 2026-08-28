@@ -40,6 +40,16 @@ return {
 		"esmuellert/codediff.nvim",
 		dependencies = { "MunifTanjim/nui.nvim" },
 		cmd = "CodeDiff",
+		init = function()
+			vim.api.nvim_create_autocmd("User", {
+				pattern = "CodeDiffOpen",
+				callback = function()
+					for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+						vim.wo[win].cursorline = false
+					end
+				end,
+			})
+		end,
 		opts = {
 			explorer = {
 				position = "left",
