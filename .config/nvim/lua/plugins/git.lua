@@ -128,6 +128,7 @@ return {
 				end
 
 				map("n", "<leader>gs", gs.stage_hunk, "Stage Hunk")
+				map("n", "<leader>gS", gs.stage_buffer, "Stage Buffer")
 				map("v", "<leader>gs", function()
 					gs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
 				end, "Stage Lines")
