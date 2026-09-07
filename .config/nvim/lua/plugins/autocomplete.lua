@@ -36,15 +36,15 @@ return {
 					"buffer",
 				},
 				per_filetype = {
-					sql = { "dadbod", "buffer" },
-					mysql = { "dadbod", "buffer" },
-					plsql = { "dadbod", "buffer" },
+					sql = { "dadbod_grip", "buffer" },
+					mysql = { "dadbod_grip", "buffer" },
+					plsql = { "dadbod_grip", "buffer" },
 				},
 				providers = {
-					dadbod = {
-						name = "Dadbod",
-						module = "vim_dadbod_completion.blink",
-						score_offset = 85,
+					dadbod_grip = {
+						name = "Grip SQL",
+						module = "dadbod-grip.completion.blink",
+						score_offset = 90,
 					},
 				},
 			},
