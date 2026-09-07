@@ -121,6 +121,7 @@ PROMPT="${BLUE}%3~ \$(git_prompt_info)${RESET}
 # Aliases
 
 alias vim='nvim'
+alias cls="printf '\033[2J\033[3J\033[H'"
 alias l='eza -lha --group-directories-first --icons'
 alias ls='eza -lha --group-directories-first --icons'
 alias ll='eza'
