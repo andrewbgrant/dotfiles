@@ -138,7 +138,7 @@ return {
 				map("v", "<leader>gr", function()
 					gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
 				end, "Reset Lines")
-				map("n", "<leader>gp", gs.preview_hunk, "Preview Hunk")
+				map("n", "<leader>gv", gs.preview_hunk, "Preview Hunk")
 				map("n", "]h", function()
 					if vim.wo.diff then
 						vim.cmd.normal({ "]c", bang = true })
