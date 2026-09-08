@@ -20,6 +20,8 @@ return {
 	{
 		"echasnovski/mini.ai",
 		event = "VeryLazy",
+		-- Supplies function, class, and block queries for Mini.ai's text objects.
+		dependencies = { { "nvim-treesitter/nvim-treesitter-textobjects", branch = "main" } },
 		opts = function()
 			local ai = require("mini.ai")
 			return {
