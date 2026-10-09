@@ -13,7 +13,6 @@ opt.termguicolors = true
 opt.clipboard = "unnamedplus"
 opt.scrolloff = 12
 opt.cursorline = false
-opt.guicursor = ""
 opt.number = true
 opt.relativenumber = true
 opt.showmode = false
