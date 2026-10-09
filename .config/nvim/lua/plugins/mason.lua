@@ -12,6 +12,7 @@ local tools = {
 	"rust-analyzer",
 	"shellcheck",
 	"shfmt",
+	"sqlfmt",
 	"stylua",
 	"tailwindcss-language-server",
 	"texlab",
@@ -32,8 +33,8 @@ return {
 		dependencies = { "mason-org/mason.nvim" },
 		opts = {
 			ensure_installed = tools,
-			run_on_start = true,
-			start_delay = 3000,
+			-- Install missing tools explicitly with :MasonToolsInstall.
+			run_on_start = false,
 		},
 	},
 }
