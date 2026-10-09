@@ -4,17 +4,6 @@ return {
 		version = "*",
 		keys = {
 			{ "<leader>D", "<cmd>GripConnect<cr>", desc = "Database" },
-			{
-				"<leader>Dg",
-				function()
-					require("dadbod-grip").open_smart()
-				end,
-				desc = "Database grid",
-			},
-			{ "<leader>Dq", "<cmd>GripQuery<cr>", desc = "Database query" },
-			{ "<leader>Ds", "<cmd>GripSchema<cr>", desc = "Database schema" },
-			{ "<leader>Dt", "<cmd>GripTables<cr>", desc = "Database tables" },
-			{ "<leader>Dh", "<cmd>GripHistory<cr>", desc = "Database history" },
 		},
 		opts = {
 			ai = false,
