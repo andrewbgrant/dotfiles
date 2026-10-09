@@ -78,7 +78,6 @@ return {
 			delay = 300,
 			icons = { mappings = false },
 			spec = {
-				{ "<leader>c", group = "Code" },
 				{ "<leader>d", group = "Debug" },
 				{ "<leader>f", group = "Find" },
 				{ "<leader>g", group = "Git" },
