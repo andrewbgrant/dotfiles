@@ -4,6 +4,7 @@ local go_bin = vim.fn.expand("~/go/bin")
 
 local install_commands = {
 	basedpyright = "pip install basedpyright",
+	clangd = "MasonInstall clangd",
 	tsc = "MasonInstall tsc",
 	lua_ls = "brew install lua-language-server",
 	bashls = "npm install -g bash-language-server",
