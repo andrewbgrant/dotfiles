@@ -1,69 +1,31 @@
-# zmodload zsh/zprof
+# Ghostty only auto-injects integration into its initial shell, not tmux shells.
+if [[ -n $GHOSTTY_RESOURCES_DIR ]]; then
+  source "$GHOSTTY_RESOURCES_DIR"/shell-integration/zsh/ghostty-integration
+fi
 
 bindkey -e
 
 # History
-HISTSIZE=1000
-SAVEHIST=1000
+HISTSIZE=5000
+SAVEHIST=5000
 setopt HIST_IGNORE_DUPS      # Don't record duplicates
 setopt HIST_IGNORE_SPACE     # Don't record commands starting with space
 setopt SHARE_HISTORY         # Share history between sessions
 setopt HIST_VERIFY           # Show command before executing from history
 
-setopt autocd
-
-# Environment
-export VISUAL='nvim'
-export EDITOR='nvim'
-
-
-# Zsh Plugins
-source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-bindkey '^Y' autosuggest-accept
-source /opt/homebrew/opt/zsh-autocomplete/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
-zstyle ':autocomplete:*' min-input 3
-zstyle ':autocomplete:*' delay 0.2
-
-
-# Custom Environment Variables
-# Project tools
-# source "$HOME/set_env.sh"
-source ~/dotfiles/scripts/tmuxp.sh
-alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
 
 
 
 # Language & Toolchain Paths
-# Ruby
-export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
-export PATH="/opt/homebrew/lib/ruby/gems/3.3.0/bin:$PATH"
-# Add Ruby gem bindir to PATH if not already present
-GEM_BINDIR=$(ruby -e 'puts Gem.bindir' 2>/dev/null)
-if [[ -n "$GEM_BINDIR" && ":$PATH:" != *":$GEM_BINDIR:"* ]]; then
-  PATH=$PATH:$GEM_BINDIR
-fi
-
-# MySQL
-export PATH="/opt/homebrew/opt/mysql/bin:$PATH"
-
-# Add node to PATH directly (fast, no nvm load)
+# Add node to PATH directly (fast, no nvm load; zsh-native, no subprocesses)
 export NVM_DIR="$HOME/.nvm"
-if [ -d "$NVM_DIR/versions/node" ]; then
-  # Get default version (may be partial like "22")
-  DEFAULT_VERSION=$(cat "$NVM_DIR/alias/default" 2>/dev/null)
-
-  if [ -n "$DEFAULT_VERSION" ]; then
-    # Find matching version in versions directory (e.g., "22" -> "v22.16.0")
-    NODE_VERSION=$(ls -1 "$NVM_DIR/versions/node" | grep "^v${DEFAULT_VERSION}" | tail -1)
+if [[ -d "$NVM_DIR/versions/node" ]]; then
+  if [[ -r "$NVM_DIR/alias/default" && -n "$(<$NVM_DIR/alias/default)" ]]; then
+    node_matches=("$NVM_DIR/versions/node"/v$(<$NVM_DIR/alias/default)*(N))
   else
-    # Fall back to most recent version
-    NODE_VERSION=$(ls -t "$NVM_DIR/versions/node" | head -1)
+    node_matches=("$NVM_DIR/versions/node"/v*(om[1]))  # most recently installed
   fi
-
-  if [ -n "$NODE_VERSION" ] && [ -d "$NVM_DIR/versions/node/$NODE_VERSION/bin" ]; then
-    export PATH="$NVM_DIR/versions/node/$NODE_VERSION/bin:$PATH"
-  fi
+  [[ -n ${node_matches[-1]} ]] && export PATH="${node_matches[-1]}/bin:$PATH"
 fi
 
 # Lazy load nvm (only when explicitly needed)
@@ -81,13 +43,16 @@ export PATH="/Users/andrewgrant/.bun/bin:$PATH"
 
 # Python/uv
 . "$HOME/.local/bin/env"
-eval "$(uv generate-shell-completion zsh)"
+# Lazy load uv (the completion eval is only needed once uv is used)
+uv() {
+  unfunction uv
+  eval "$(uv generate-shell-completion zsh)"
+  uv "$@"
+}
 if [ -d "$HOME/.uv_global" ]; then
     source $HOME/.uv_global/bin/activate
 fi
 
-# LM Studio CLI
-export PATH="$PATH:$HOME/.lmstudio/bin"
 
 
 
@@ -102,16 +67,22 @@ YELLOW='%F{yellow}'
 RED='%F{red}'
 RESET='%f'
 
-# Git Prompt
+# Git Prompt: branch + staged/unstaged dirty state; untracked files are ignored.
 git_prompt_info() {
-  local branch_name git_status_output indicator
-  branch_name=$(git symbolic-ref --short HEAD 2> /dev/null || git rev-parse --short HEAD 2> /dev/null) || return 0
-  git_status_output=$(git status --porcelain=2 --branch --untracked-files=no 2> /dev/null) || return 0
-  indicator="${GREEN}✔"
-  if [[ $git_status_output =~ $'\n'(1|2|u) ]]; then
-    indicator="${RED}✗"
-  fi
-  echo "${PURPLE}(${branch_name} ${indicator}${PURPLE})${RESET}"
+	local git_cmd=${commands[git]:-git} branch dirty
+	# Bypass Apple's launcher without overriding other Git installations on PATH.
+	if [[ $git_cmd == /usr/bin/git && -x /Library/Developer/CommandLineTools/usr/bin/git ]]; then
+		git_cmd=/Library/Developer/CommandLineTools/usr/bin/git
+	fi
+	branch=$("$git_cmd" symbolic-ref --short -q HEAD 2>/dev/null) \
+		|| branch=$("$git_cmd" rev-parse --short=7 HEAD 2>/dev/null) \
+		|| return 0
+	if "$git_cmd" diff --quiet HEAD 2>/dev/null; then
+		dirty="${GREEN}✔"
+	else
+		dirty="${RED}✗"
+	fi
+	echo "${PURPLE}(${branch} ${dirty}${PURPLE})${RESET}"
 }
 setopt PROMPT_SUBST
 PROMPT="${BLUE}%3~ \$(git_prompt_info)${RESET}
@@ -120,14 +91,13 @@ PROMPT="${BLUE}%3~ \$(git_prompt_info)${RESET}
 #####################################################################
 # Aliases
 
+alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
 alias vim='nvim'
 alias cls="printf '\033[2J\033[3J\033[H'"
-alias l='eza -lha --group-directories-first --icons'
+alias l='eza'
 alias ls='eza -lha --group-directories-first --icons'
-alias ll='eza'
 alias ipy='ipython'
 alias lg='lazygit'
-alias ld='lazydocker'
 alias venv='source venv/bin/activate 2>/dev/null || source .venv/bin/activate'
 
 # Directory navigation
@@ -135,71 +105,12 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 
-# Process management
-alias ps='ps aux | grep -v grep | grep'
-alias ports='lsof -i -P -n | grep LISTEN'
-
-#####################################################################
-
-# Port management functions
-function stop-port() {
-  if [ -z "$1" ]; then
-    echo "Usage: stop-port <port_number>"
-    return 1
-  fi
-  
-  local port=$1
-  local pids=$(lsof -ti :$port)
-  
-  if [ -z "$pids" ]; then
-    echo "No process found listening on port $port"
-    return 1
-  fi
-  
-  echo "Killing process(es) on port $port: $pids"
-  echo $pids | xargs kill
-  
-  # Verify it's stopped
-  sleep 1
-  if lsof -ti :$port > /dev/null 2>&1; then
-    echo "Process still running, force killing..."
-    echo $pids | xargs kill -9
-  else
-    echo "Successfully stopped process on port $port"
-  fi
+c() {
+  clang "$1" -o /tmp/c-run && /tmp/c-run
 }
 
-function show-ports() {
-  echo "Common development ports:"
-  for port in 3000 3001 8001 8002; do
-    local pid=$(lsof -ti :$port 2>/dev/null)
-    if [ -n "$pid" ]; then
-      local process=$(ps -p $pid -o comm= 2>/dev/null)
-      echo "Port $port: PID $pid ($process)"
-    else
-      echo "Port $port: free"
-    fi
-  done
-  echo ""
-  echo "All listening ports:"
-  lsof -i -P -n | grep LISTEN | awk '{print $1, $2, $9}' | sort -k3
-}
-#####################################################################
-#####################################################################
-# FZF Configuration
-export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
-export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border --preview="bat --color=always {}" --preview-window=right:50%'
-
-# FZF command for directories
-export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git'
-
-source <(fzf --zsh)
-
-#####################################################################
-
-
-# opencode
-export PATH="$HOME/.opencode/bin:$PATH"
+# Project tools
+source ~/dotfiles/scripts/tmuxp.sh
 
 
 # oMLX: CLI shim path begin
@@ -208,13 +119,3 @@ case ":$PATH:" in
   *) export PATH="$HOME/.omlx/bin:$PATH" ;;
 esac
 # oMLX: CLI shim path end
-
-
-# dcg: warn if hook was silently removed from Claude Code settings
-if command -v dcg &>/dev/null && command -v jq &>/dev/null; then
-  if [ -f "$HOME/.claude/settings.json" ] && \
-     ! jq -e '.hooks.PreToolUse[]? | select(.hooks[]?.command | test("dcg$"))' \
-       "$HOME/.claude/settings.json" &>/dev/null; then
-    printf '\033[1;33m[dcg] Hook missing from ~/.claude/settings.json — run: dcg install\033[0m\n'
-  fi
-fi
