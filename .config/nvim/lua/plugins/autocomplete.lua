@@ -8,7 +8,11 @@ return {
 			require("blink.cmp").setup(opts)
 		end,
 		opts = {
-			keymap = { preset = "default" },
+			keymap = {
+				preset = "default",
+				["<C-y>"] = false,
+				["<Tab>"] = { "select_and_accept", "snippet_forward", "fallback" },
+			},
 			appearance = {
 				use_nvim_cmp_as_default = true,
 				nerd_font_variant = "mono",
