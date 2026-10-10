@@ -1,9 +1,8 @@
-vim.cmd("let g:loaded_perl_provider = 0")
-vim.cmd("let g:loaded_go_provider = 0")
-vim.cmd("let g:loaded_php_provider = 0")
-vim.cmd("let g:loaded_composer_provider = 0")
-vim.cmd("let g:loaded_julia_provider = 0")
-vim.cmd("let g:loaded_javac_provider = 0")
+-- Provider vars that actually exist in neovim; the others (go/php/julia/etc)
+-- in the old block were no-ops. python3 stays enabled via python3_host_prog
+-- (see config/init.lua); ruby is uninstalled.
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_ruby_provider = 0
 
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
@@ -26,12 +25,3 @@ require("lazy").setup({ import = "plugins" }, {
 
 require("config")
 require("config.lsp")
-
-vim.diagnostic.config({
-	virtual_text = false,
-	float = {
-		focusable = false,
-		border = "rounded",
-		source = "always",
-	},
-})
