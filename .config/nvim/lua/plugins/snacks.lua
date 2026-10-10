@@ -108,6 +108,7 @@ return {
                 filter = {
                     default = {
                         "Class",
+                        "Constant",
                         "Enum",
                         "Field",
                         "Function",
@@ -118,6 +119,7 @@ return {
                         "Package",
                         "Struct",
                         "Trait",
+                        "Variable",
                     },
                 },
                 transform = keep_lsp_symbol,
@@ -174,6 +176,10 @@ return {
                         "fd",
                         "--type",
                         "d",
+                        "--max-depth",
+                        "4",
+                        "--exclude",
+                        "node_modules",
                         "--color",
                         "never",
                     }
@@ -198,7 +204,8 @@ return {
                                     format = "text",
                                     confirm = function(picker, item)
                                         picker:close()
-                                        vim.cmd("Oil " .. item.text)
+                                        local directory = vim.fn.fnamemodify(item.text, ":p")
+                                        vim.cmd({ cmd = "Oil", args = { directory } })
                                     end,
                                 })
                             end
