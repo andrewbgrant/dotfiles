@@ -11,6 +11,31 @@ vim.keymap.set("n", "<leader>pp", function()
 	vim.notify("Copied path: " .. path, vim.log.levels.INFO)
 end, { desc = "Copy file path to clipboard" })
 
+-- Stage the saved contents of the current file, including untracked files.
+local function stage_current_file()
+	local path = vim.api.nvim_buf_get_name(0)
+	if path == "" then
+		vim.notify("Cannot stage an unnamed buffer", vim.log.levels.WARN)
+		return
+	end
+
+	local directory = vim.fn.fnamemodify(path, ":h")
+	vim.system({ "git", "-C", directory, "add", "--", path }, { text = true }, function(result)
+		vim.schedule(function()
+			if result.code == 0 then
+				vim.notify("Staged " .. vim.fn.fnamemodify(path, ":."), vim.log.levels.INFO)
+				local ok, gitsigns = pcall(require, "gitsigns")
+				if ok then
+					gitsigns.refresh()
+				end
+			else
+				vim.notify(vim.trim(result.stderr or "git add failed"), vim.log.levels.ERROR)
+			end
+		end)
+	end)
+end
+
+vim.keymap.set("n", "<leader>gS", stage_current_file, { desc = "Stage File" })
 -- Windows
 vim.keymap.set("n", "<leader>wx", "<C-W>c", { desc = "Delete window", remap = true })
 vim.keymap.set("n", "<leader>w-", "<C-W>s", { desc = "Split window below", remap = true })
