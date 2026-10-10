@@ -1,20 +1,27 @@
-local format_on_save = {
-	timeout_ms = 3000,
-	lsp_format = "fallback",
-}
-
 return {
 	"stevearc/conform.nvim",
 	event = { "BufWritePre" },
+	cmd = "ConformInfo",
+	keys = {
+		{
+			"<leader>pf",
+			function()
+				require("conform").format()
+			end,
+			desc = "Format Buffer",
+		},
+	},
 	config = function()
 		vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin:" .. vim.fn.expand("~/go/bin") .. ":" .. vim.env.PATH
 		require("conform").setup({
+			format_on_save = {
+				timeout_ms = 500,
+				lsp_format = "fallback",
+			},
 			formatters_by_ft = {
 				lua = { "stylua" },
 				python = { "ruff_organize_imports", "ruff_format" },
 				go = { "goimports", "gofumpt" },
-				gomod = { "gofumpt" },
-				gowork = { "gofumpt" },
 				javascript = { "oxfmt" },
 				javascriptreact = { "oxfmt" },
 				typescript = { "oxfmt" },
@@ -36,7 +43,6 @@ return {
 				plsql = { "sqlfmt" },
 				sh = { "shfmt" },
 			},
-			format_on_save = format_on_save,
 		})
 	end,
 }
