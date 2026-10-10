@@ -9,6 +9,24 @@ return {
 		},
 		config = function()
 			require("oil").setup({
+				-- Unmap oil's buffer-local <C-h>/<C-l> defaults (select-horizontal / refresh)
+				-- so global vim-tmux-navigator mappings keep working in oil windows
+				keymaps = {
+					["<C-h>"] = false,
+					["<C-l>"] = false,
+					["gx"] = "actions.open_external",
+					["gF"] = {
+						function()
+							local oil = require("oil")
+							local dir = oil.get_current_dir()
+							local entry = oil.get_cursor_entry()
+							if dir and entry then
+								vim.system({ "open", "-R", dir .. entry.name })
+							end
+						end,
+						desc = "Reveal in Finder",
+					},
+				},
 				columns = { "permissions", "size", "mtime", "icon" },
 				delete_to_trash = true,
 				skip_confirm_for_simple_edits = true,
