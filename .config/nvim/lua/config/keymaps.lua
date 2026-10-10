@@ -25,9 +25,12 @@ vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Go to right window", remap = tr
 -- Clear search with <esc>
 vim.keymap.set({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
 
--- toggle inlay hints
+-- toggle inlay hints (sets a global flag so LspAttach doesn't silently
+-- re-enable them in new buffers after you've turned them off)
 vim.keymap.set("n", "<leader>ph", function()
-	vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+	local enabled = not vim.lsp.inlay_hint.is_enabled({ bufnr = 0 })
+	vim.g.disable_inlay_hints = enabled and nil or true
+	vim.lsp.inlay_hint.enable(enabled, { bufnr = 0 })
 end, { desc = "Toggle Inlay Hints" })
 
 -- better indenting
