@@ -4,6 +4,7 @@ local go_bin = vim.fn.expand("~/go/bin")
 
 local install_commands = {
 	basedpyright = "pip install basedpyright",
+	pyrefly = "pip install pyrefly",
 	clangd = "MasonInstall clangd",
 	tsc = "MasonInstall tsc",
 	lua_ls = "brew install lua-language-server",
@@ -107,6 +108,7 @@ local function setup_lsps(configs)
 			if cmd_path then
 				local updated_config = vim.deepcopy(config)
 				updated_config.cmd[1] = cmd_path
+				updated_config.capabilities = require("blink.cmp").get_lsp_capabilities(updated_config.capabilities)
 				vim.lsp.config(name, updated_config)
 				vim.lsp.enable(name)
 			end

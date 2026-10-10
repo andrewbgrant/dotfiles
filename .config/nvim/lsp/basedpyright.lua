@@ -1,3 +1,5 @@
+-- Uncomment this file and comment out pyrefly.lua to switch back.
+--[[
 return {
 	name = "basedpyright",
 	cmd = { "basedpyright-langserver", "--stdio" },
@@ -53,3 +55,4 @@ return {
 		client.server_capabilities.semanticTokensProvider = nil
 	end,
 }
+]]
