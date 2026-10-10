@@ -24,6 +24,7 @@ return {
 		"folke/snacks.nvim",
 		priority = 1000,
 		lazy = false,
+		dependencies = { { "echasnovski/mini.icons", opts = {} } },
 		opts = {
 			bigfile = { enabled = true },
 			quickfile = { enabled = true },
