@@ -24,7 +24,8 @@ return {
 
 	{
 		"nvim-treesitter/nvim-treesitter-context",
-		opts = { enable = false },
+		lazy = false,
+		opts = { enable = true },
 		keys = {
 			{
 				"<leader>pc",
@@ -36,7 +37,12 @@ return {
 		},
 		config = function(_, opts)
 			require("treesitter-context").setup(opts)
-			vim.api.nvim_set_hl(0, "treesittercontext", { bg = "#202020" })
+			local function highlight_context()
+				vim.api.nvim_set_hl(0, "TreesitterContext", { bg = "#303035" })
+				vim.api.nvim_set_hl(0, "TreesitterContextLineNumber", { fg = "#a6a6a6", bg = "#303035" })
+			end
+			vim.api.nvim_create_autocmd("ColorScheme", { callback = highlight_context })
+			highlight_context()
 		end,
 	},
 
