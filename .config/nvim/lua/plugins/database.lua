@@ -18,6 +18,13 @@ return {
 			picker = "snacks",
 		},
 		config = function(_, opts)
+			-- Homebrew's keg-only MySQL client is not on the default PATH.
+			local mysql_bin = "/opt/homebrew/opt/mysql-client/bin"
+			local path = vim.env.PATH or ""
+			if vim.fn.isdirectory(mysql_bin) == 1 and not vim.tbl_contains(vim.split(path, ":"), mysql_bin) then
+				vim.env.PATH = mysql_bin .. ":" .. path
+			end
+
 			require("dadbod-grip").setup(opts)
 
 			-- Grip normally writes history, saved queries, and filters to each
