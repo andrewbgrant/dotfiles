@@ -102,7 +102,7 @@ return {
             { "<leader>fd",       function() Snacks.picker.diagnostics() end, desc = "Diagnostics" },
             { "<leader>fD",       function() Snacks.picker.diagnostics_buffer() end, desc = "Buffer Diagnostics" },
             { "<leader>fh",       function() Snacks.picker.help() end,                                                desc = "Help Pages" },
-            { "<leader>n",        function() Snacks.picker.notifications() end,                                       desc = "noitifications" },
+            { "<leader>n",        function() Snacks.picker.notifications() end,                                       desc = "Notifications" },
             -- LSP
             { "<leader>fs",       function() Snacks.picker.lsp_symbols({
                 filter = {
